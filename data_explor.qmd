@@ -2,14 +2,51 @@
 title: "Exploración de datos"
 format: html
 ---
+Para que en el render no se vean los códigos
 
-```{r}
-pacman::p_load(tidyverse, skimr, rio)
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
 ```
 
+Carga de paquetes
 
 ```{r}
-mtcars |> 
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally)
+```
+
+Importar Excel desde la carpeta de archivos cargados (armar un proyecto previo) 
+
+```{r}
+dat <- import("data/datos.xlsx") %>% clean_names()  #clean_means transforma todas la mayúsculas en minúsculas y todos los espacios en guiones bajos
+head(dat) #Visualizar datos
+```
+
+Exploración de las variables respuestas de nuestro interés (sondeo de datos)
+
+
+```{r}
+dat %>% 
+  select_if(is.numeric) %>% 
   skim()
 ```
+
+Relación entre las variables respuesta
+
+
+```{r}
+library(ggplot2)
+
+```
+
+
+
+```{r}
+dat %>% 
+  select(ph,proteina,se,sm ,em,mc,altura,gramos_m,rinde_ha,kg_m2,pmg ,ba,ic,espigas_m,espiguillas_espiga,granos_espiga,peso_granos_espiga) #variables respuesta
+ggpairs(data=dat, columns = 7:23)
+ggsave(last_plot(), file="tesis_juan/data/Visualización.png", w=700, h=600, units="mm", dpi=600)
+
+```
+
+
 
