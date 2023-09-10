@@ -1,0 +1,15 @@
+---
+title: "Exploración de datos"
+format: html
+---
+
+```{r}
+pacman::p_load(tidyverse, skimr, rio)
+```
+
+
+```{r}
+mtcars |> 
+  skim()
+```
+
