@@ -2,51 +2,111 @@
 title: "Exploración de datos"
 format: html
 ---
-Para que en el render no se vean los códigos
 
 ```{r include=FALSE}
+# Para que en el render no se vean los códigos: echo = F
 knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
 ```
 
 Carga de paquetes
 
 ```{r}
-pacman::p_load(tidyverse, skimr, rio, janitor, GGally)
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable)
 ```
 
-Importar Excel desde la carpeta de archivos cargados (armar un proyecto previo) 
+Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)
 
 ```{r}
-dat <- import("data/datos.xlsx") %>% clean_names()  #clean_means transforma todas la mayúsculas en minúsculas y todos los espacios en guiones bajos
-head(dat) #Visualizar datos
+dat <- import("data/datos.xlsx") %>% clean_names()  
+# clean_names transforma todas la mayúsculas en minúsculas y todos los espacios en guiones bajos
 ```
 
-Exploración de las variables respuestas de nuestro interés (sondeo de datos)
+```{r}
+head(dat) |> 
+  as_hux() %>% 
+  theme_article() %>% 
+  set_font_size(9) %>%    
+  set_top_padding(.2) %>%
+  set_bottom_padding(.2)
+```
 
+Breve descripción de variables:
+
+ph: peso hectolítrico proteina: proteins (%) se: sm:
+
+Exploración de las variables respuestas de nuestro interés
 
 ```{r}
 dat %>% 
-  select_if(is.numeric) %>% 
+  select(ph,proteina,se,em,
+         sm, #mc,
+         altura,
+         gramos_m, kg_m2,
+         pmg,ba,ic,espigas_m,espiguillas_espiga,
+         granos_espiga, peso_granos_espiga) |> 
   skim()
 ```
 
-Relación entre las variables respuesta
-
-
-```{r}
-library(ggplot2)
-
-```
-
-
+Relación entre las variables
 
 ```{r}
 dat %>% 
-  select(ph,proteina,se,sm ,em,mc,altura,gramos_m,rinde_ha,kg_m2,pmg ,ba,ic,espigas_m,espiguillas_espiga,granos_espiga,peso_granos_espiga) #variables respuesta
-ggpairs(data=dat, columns = 7:23)
-ggsave(last_plot(), file="tesis_juan/data/Visualización.png", w=700, h=600, units="mm", dpi=600)
+  select(ph,proteina,se,em,
+         sm, #mc,
+         altura,
+         gramos_m, kg_m2,
+         pmg,ba,ic,espigas_m,espiguillas_espiga,
+         granos_espiga, peso_granos_espiga) |> 
+ggpairs()
 
+# ggsave(last_plot(), file="tesis_juan/data/Visualización.png", w=700, h=600, units="mm", dpi=600)
 ```
 
+```{r}
+dat |> 
+  count(participante) |> 
+  as_hux() %>% 
+  theme_article() %>% 
+  set_font_size(9) %>%    
+  set_top_padding(.2) %>%
+  set_bottom_padding(.2)
+```
 
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="genotipo", y="kg/m2")
+
+ggsave(last_plot(), h=8, file="plots/rinde.png")
+```
+
+![]("plots/rinde.png"){width="0" height="10"}
+
+## Análisis multivariado
+
+```{r}
+pacman::p_load(FactoMineR, factoextra)
+```
+
+```{r}
+dat_sum <- dat |> 
+  group_by(participante) |> 
+  select(ph,proteina,se,em,
+         sm, #mc,
+         altura,
+         gramos_m, kg_m2,
+         pmg,ba,ic,espigas_m,espiguillas_espiga,
+         granos_espiga, peso_granos_espiga) |>
+  summarise_all(.funs="mean") |> 
+  column_to_rownames(var="participante")
+```
+
+```{r}
+# http://factominer.free.fr/factomethods/principal-components-analysis.html
+PCA(dat_sum, scale.unit=TRUE, ncp=5, graph=T)
+```
 
