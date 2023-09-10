@@ -13,6 +13,9 @@ Carga de paquetes
 ```{r}
 pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable)
 ```
+```{r}
+library(ggplot2)
+```
 
 Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)
 
@@ -74,7 +77,7 @@ pacman::p_load(FactoMineR, factoextra)
 dat_sum <- dat |> 
   group_by(participante) |> 
   select(ph,proteina,se,em,
-         sm, #mc,
+         sm, mc,
          altura,
          gramos_m, kg_m2,
          pmg,ba,ic,espigas_m,espiguillas_espiga,
@@ -84,8 +87,9 @@ dat_sum <- dat |>
 ```
 
 ```{r}
-# http://factominer.free.fr/factomethods/principal-components-analysis.html
+#http://factominer.free.fr/factomethods/principal-components-analysis.html
 PCA(dat_sum, scale.unit=TRUE, ncp=5, graph=T)
+#ggsave(last_plot(), file="plots/Análisis2.png", w=800, h=400, units="mm", dpi=400)
 ```
 
 
@@ -110,11 +114,222 @@ dat |>
   geom_point()+ 
   stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
   coord_flip() + 
-  labs(x="genotipo", y="kg/m2")
+  labs(x="genotipo", y="kg/4.18m2")
 
-ggsave(last_plot(), h=8, file="plots/rinde.png")
+#ggsave(last_plot(), h=8, file="plots/rinde.png")
 ```
 
-![](plots/rinde.png)
+## PH
 
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, ph, mean) , y=ph) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Peso hectolítrico")
+
+#ggsave(last_plot(), h=8, file="plots/ph.png")
+```
+## Proteína 
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, proteina, mean) , y=proteina) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Proteína (%)")
+
+#ggsave(last_plot(), h=8, file="plots/proteína.png")
+```
+## SE
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, se, mean) , y=se) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Siembra-Emergencia (días)")
+
+#ggsave(last_plot(), h=8, file="plots/se.png")
+```
+## SM
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, sm, mean) , y=sm) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Siembra-Madurez (días)")
+
+#ggsave(last_plot(), h=8, file="plots/sm.png")
+```
+## EM
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, em, mean) , y=em) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Emergencia-Madurez (días)")
+
+#ggsave(last_plot(), h=8, file="plots/em.png")
+```
+## MC
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, mc, mean) , y=mc) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Madurez-Cosecha (días)")
+
+#ggsave(last_plot(), h=8, file="plots/mc.png")
+```
+## Altura
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, altura, mean) , y=altura) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Altura (cm)")
+
+#ggsave(last_plot(), h=8, file="plots/altura.png")
+```
+
+## Gramos/m lineal
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, gramos_m, mean) , y=gramos_m) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Peso de granos/m (g/m)")
+
+#ggsave(last_plot(), h=8, file="plots/gramos_m.png")
+```
+
+## Rinde Kg/m2
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Rendimiento (Kg/4.18m2)")
+
+#ggsave(last_plot(), h=8, file="plots/kg_m2.png")
+```
+## Peso de mil granos
+
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, pmg, mean) , y=pmg) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Peso de mil granos (g)")
+
+#ggsave(last_plot(), h=8, file="plots/pmg.png")
+```
+
+## Biomasa aérea
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, ba, mean) , y=ba) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Biomasa aérea (g)")
+
+#ggsave(last_plot(), h=8, file="plots/ba.png")
+```
+## Índice de cosecha
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, ic, mean) , y=ic) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Índice de cosecha (%)")
+
+#ggsave(last_plot(), h=8, file="plots/ic.png")
+```
+## Espigas/m lineal
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, espigas_m, mean) , y=espigas_m) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Espigas/m lineal")
+
+#ggsave(last_plot(), h=8, file="plots/espigas_m.png")
+```
+## Espiguillas/espiga
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, espiguillas_espiga, mean) , y=espiguillas_espiga) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Nro. de espiguillas/espiga")
+
+#ggsave(last_plot(), h=8, file="plots/espiguillas_espiga.png")
+```
+## Granos/espiga
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, granos_espiga, mean) , y=granos_espiga) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Nro. de granos/espiga")
+
+#ggsave(last_plot(), h=8, file="plots/granos_espiga.png")
+```
+## Peso de granos/espiga
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, peso_granos_espiga, mean) , y=peso_granos_espiga) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="Genotipo", y="Peso de granos/espiga (g)")
+
+#ggsave(last_plot(), h=8, file="plots/peso_granos_espiga.png")
+```
 
