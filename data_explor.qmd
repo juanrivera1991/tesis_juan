@@ -47,9 +47,9 @@ dat %>%
   skim()
 ```
 
-Relación entre las variables
+## Correlacion entre las variables
 
-```{r}
+```{r, eval=FALSE}
 dat %>% 
   select(ph,proteina,se,em,
          sm, #mc,
@@ -59,32 +59,10 @@ dat %>%
          granos_espiga, peso_granos_espiga) |> 
 ggpairs()
 
-# ggsave(last_plot(), file="tesis_juan/data/Visualización.png", w=700, h=600, units="mm", dpi=600)
+# ggsave(last_plot(), file="plots/corr.png", scale=1.5, h=10, w=10)
 ```
 
-```{r}
-dat |> 
-  count(participante) |> 
-  as_hux() %>% 
-  theme_article() %>% 
-  set_font_size(9) %>%    
-  set_top_padding(.2) %>%
-  set_bottom_padding(.2)
-```
-
-```{r, eval=FALSE}
-dat |> 
-  ggplot() + 
-  aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
-  geom_point()+ 
-  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
-  coord_flip() + 
-  labs(x="genotipo", y="kg/m2")
-
-ggsave(last_plot(), h=8, file="plots/rinde.png")
-```
-
-![]("plots/rinde.png"){width="0" height="10"}
+![](plots/corr.png)
 
 ## Análisis multivariado
 
@@ -109,4 +87,34 @@ dat_sum <- dat |>
 # http://factominer.free.fr/factomethods/principal-components-analysis.html
 PCA(dat_sum, scale.unit=TRUE, ncp=5, graph=T)
 ```
+
+
+Verificamos la lista de participantes
+
+```{r}
+dat |> 
+  count(participante) |> 
+  as_hux() %>% 
+  theme_article() %>% 
+  set_font_size(9) %>%    
+  set_top_padding(.2) %>%
+  set_bottom_padding(.2)
+```
+
+## Rinde por m2
+
+```{r, eval=FALSE}
+dat |> 
+  ggplot() + 
+  aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
+  geom_point()+ 
+  stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
+  coord_flip() + 
+  labs(x="genotipo", y="kg/m2")
+
+ggsave(last_plot(), h=8, file="plots/rinde.png")
+```
+
+![](plots/rinde.png)
+
 
