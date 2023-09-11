@@ -1,0 +1,127 @@
+---
+title: "Model"
+format: html
+---
+
+```{r include=FALSE}
+# Para que en el render no se vean los códigos: echo = F
+knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
+```
+
+Carga de paquetes
+
+```{r}
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable, 
+               MASS, relaimpo, emmeans, multcomp)
+
+conflicted::conflict_prefer("select", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")
+```
+Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)
+
+```{r}
+dat <- import("data/datos.xlsx") %>% clean_names() |> select(-contains("cv")) |> 
+  mutate_at(vars(participante, bloque), as.factor) 
+```
+
+## Regresion lineal multiple 
+
+### kg_m2
+
+```{r}
+mod_rinde <- lm(kg_m2 ~ ., data= dat)
+mod_rinde_step <- stepAIC(mod_rinde,  direction="both", trace = FALSE)
+summary(mod_rinde_step)
+```
+
+```{r}
+ri_rinde <- calc.relimp(mod_rinde_step, type="car", rela=TRUE)
+ri_rinde
+```
+
+Efecto del participante
+
+```{r}
+mod_part <- lm(kg_m2 ~ participante + bloque, data= dat)
+anova(mod_part)
+
+performance::check_normality(mod_part)
+performance::check_heteroscedasticity(mod_part) |> plot()
+performance::check_outliers(mod_part)
+```
+> NO hay efecto del participante 
+
+### ph
+
+```{r}
+mod_ph <- lm(ph ~ ., data= dat)
+mod_ph_step <- stepAIC(mod_ph,  direction="both", trace = FALSE)
+anova(mod_ph_step)
+
+performance::check_normality(mod_ph_step)
+performance::check_heteroscedasticity(mod_ph_step)
+performance::check_outliers(mod_ph_step)
+```
+
+```{r}
+ri_ph <- calc.relimp(mod_ph_step, type="car", rela=TRUE)
+ri_ph
+```
+
+Efecto del participante
+
+```{r}
+mod_ph2 <- lm(ph ~ participante + bloque, data= dat)
+performance::check_normality(mod_ph2)
+performance::check_heteroscedasticity(mod_ph2)
+performance::check_outliers(mod_ph2)
+boxcox(mod_ph2)
+```
+
+
+```{r}
+library(nlme)
+dat$ph |> hist()
+mod_ph3 <- lme(ph ~ participante, random = ~ 1 | bloque, dat)
+plot(mod_ph3)
+dat$res <- resid(mod_ph3) 
+```
+
+
+```{r}
+ggplot(dat) +
+  aes(x = participante, y = res) +
+  geom_jitter(alpha = 0.5, width=.1) + 
+  coord_flip()
+
+ggplot(dat) +
+  aes(x = bloque, y = res) +
+  geom_jitter(alpha = 0.5, width=.1) + 
+    coord_flip()
+```
+
+La distribucion de residuos por particpante tiene diferencias y no por bloque. Modelando varianza por participante...
+
+```{r}
+mod_ph4 <- update(mod_ph3, weights = varIdent(form = ~ 1 | participante))
+plot(mod_ph4)
+```
+
+```{r eval=FALSE}
+ph_means <- emmeans(mod_ph4, ~ participante, adjust = "tukey")
+ph_means_cld <- cld(ph_means, Letters = letters, alpha = 0.1)
+ph_means_cld
+```
+
+```{r}
+# install.packages('ScottKnott')
+library(ScottKnott)
+mod_ph5 <- lm(ph ~ participante + bloque, data= dat)
+anova(mod_ph5)
+res_ph <- SK(mod_ph5, which= "participante", dispersion="se",  sig.level=0.05)
+res_ph
+```
+
+```{r}
+pairwise.wilcox.test(dat$ph, dat$participante, p.adjust.method = "BH")
+```

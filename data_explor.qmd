@@ -11,31 +11,29 @@ knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
 Carga de paquetes
 
 ```{r}
-pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable)
-```
-```{r}
-library(ggplot2)
-```
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable, 
+               MASS, relaimpo, emmeans, multcomp)
 
+conflicted::conflict_prefer("select", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")
+```
 Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)
 
 ```{r}
-dat <- import("data/datos.xlsx") %>% clean_names()  
-# clean_names transforma todas la mayúsculas en minúsculas y todos los espacios en guiones bajos
+dat <- import("data/datos.xlsx") %>% clean_names() |> select(-contains("cv")) |> 
+  mutate_at(vars(participante, bloque), as.factor) 
 ```
 
 ```{r}
-head(dat) |> 
-  as_hux() %>% 
-  theme_article() %>% 
-  set_font_size(9) %>%    
-  set_top_padding(.2) %>%
-  set_bottom_padding(.2)
+glimpse(dat)
 ```
 
 Breve descripción de variables:
 
-ph: peso hectolítrico proteina: proteins (%) se: sm:
+- ph: peso hectolítrico 
+- proteina:  (%) 
+- se: 
+- sm:
 
 Exploración de las variables respuestas de nuestro interés
 
@@ -67,7 +65,7 @@ ggpairs()
 
 ![](plots/corr.png)
 
-## Análisis multivariado
+## Multivariado
 
 ```{r}
 pacman::p_load(FactoMineR, factoextra)
@@ -88,8 +86,43 @@ dat_sum <- dat |>
 
 ```{r}
 #http://factominer.free.fr/factomethods/principal-components-analysis.html
-PCA(dat_sum, scale.unit=TRUE, ncp=5, graph=T)
+res.pca <- PCA(dat_sum, scale.unit=TRUE, ncp=5, graph=F)
 #ggsave(last_plot(), file="plots/Análisis2.png", w=800, h=400, units="mm", dpi=400)
+dimdesc(res.pca, axes=c(1,2))
+
+```
+
+
+Como se relacionan las variables entre si
+
+```{r eval=FALSE}
+fviz_pca_var(res.pca, col.var = "black")
+# ggsave(last_plot(), file="plots/multivar_variables.png", w=8, h=8)
+```
+
+![](plots/multivar_variables.png)
+
+Como se mapean los participantes
+
+```{r eval=FALSE}
+fviz_pca_ind(res.pca, 
+             repel = TRUE # Avoid text overlapping (slow if many points)
+             )
+
+ggsave(last_plot(), file="plots/multivar_particip.png", w=8, h=8)
+```
+
+![](plots/multivar_particip.png)
+
+Analisis de proximidad entre los participantes 
+
+```{r}
+dat_sum %>%
+  scale() %>%                           # Scale the data
+  dist() %>%                            # Compute distance matrix
+  hclust(method = "ward.D2") %>%        # Hierarchical clustering
+  fviz_dend(cex = 0.5, k = 4, palette = "jco") # Visualize and cut 
+                                              # into 4 groups
 ```
 
 
@@ -105,21 +138,26 @@ dat |>
   set_bottom_padding(.2)
 ```
 
-## Rinde por m2
+## Univariado
+
+### Rinde por m2
 
 ```{r, eval=FALSE}
 dat |> 
   ggplot() + 
-  aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
+  aes(x=fct_reorder(participante, kg_m2, mean) , y=(kg_m2/4.18)*1000) + 
   geom_point()+ 
   stat_summary(fun.data = "mean_sdl", colour = "red", linewidth = .1)+
   coord_flip() + 
-  labs(x="genotipo", y="kg/4.18m2")
+  labs(x="genotipo", y="g/m2")
 
-#ggsave(last_plot(), h=8, file="plots/rinde.png")
+#ggsave(last_plot(), h=8, file="plots/kg_m2.png")
 ```
 
-## PH
+![](plots/kg_m2.png)
+
+
+### PH
 
 
 ```{r, eval=FALSE}
@@ -133,6 +171,10 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/ph.png")
 ```
+
+![](plots/ph.png)
+
+
 ## Proteína 
 
 ```{r, eval=FALSE}
@@ -144,8 +186,11 @@ dat |>
   coord_flip() + 
   labs(x="Genotipo", y="Proteína (%)")
 
-#ggsave(last_plot(), h=8, file="plots/proteína.png")
+#ggsave(last_plot(), h=8, file="plots/proteina.png")
 ```
+
+![](plots/proteina.png)
+
 ## SE
 
 ```{r, eval=FALSE}
@@ -159,6 +204,9 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/se.png")
 ```
+
+![](plots/se.png)
+
 ## SM
 
 ```{r, eval=FALSE}
@@ -319,6 +367,7 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/granos_espiga.png")
 ```
+
 ## Peso de granos/espiga
 
 ```{r, eval=FALSE}
@@ -332,4 +381,6 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/peso_granos_espiga.png")
 ```
+
+
 
