@@ -2,11 +2,12 @@
 title: "Exploración de datos"
 format: html
 ---
-
 ```{r include=FALSE}
 # Para que en el render no se vean los códigos: echo = F
 knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
 ```
+
+
 
 Carga de paquetes
 
@@ -28,12 +29,27 @@ dat <- import("data/datos.xlsx") %>% clean_names() |> select(-contains("cv")) |>
 glimpse(dat)
 ```
 
-Breve descripción de variables:
+##Breve descripción de variables:
 
-- ph: peso hectolítrico 
-- proteina:  (%) 
-- se: 
-- sm:
+PH	: peso hectolitrico (kg/100l)
+Proteína	(%)
+SE	: siembra-emergencia (dias)
+SM	siembra-madurez (dias)
+EM	: emergencia- madurez (dias)
+MC	: madurez-cosecha (dias)
+Altura	
+Orientación	
+Vuelco	
+gramos_m	: cantidad de granos/ m lineal
+kg_m2	: rinde en kg/m2
+PMG	: peso de mil granos
+BA	: biomasa aerea (g)
+IC	: indice de cosecha (%)
+Espigas_m	: cantidad de espiguillas/ m lineal
+Espiguillas_espiga	: cantidad de espiguillas/ espiga
+granos_espiga	: cantidad de granos/ espiga
+Peso_granos_espiga	: peso de granos/espiga
+
 
 Exploración de las variables respuestas de nuestro interés
 
@@ -114,7 +130,7 @@ ggsave(last_plot(), file="plots/multivar_particip.png", w=8, h=8)
 
 ![](plots/multivar_particip.png)
 
-Analisis de proximidad entre los participantes 
+Analisis de proximidad entre los participantes (que tan parecidos son)
 
 ```{r}
 dat_sum %>%
@@ -160,7 +176,7 @@ dat |>
 ### PH
 
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, ph, mean) , y=ph) + 
@@ -177,7 +193,7 @@ dat |>
 
 ## Proteína 
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, proteina, mean) , y=proteina) + 
@@ -193,7 +209,7 @@ dat |>
 
 ## SE
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, se, mean) , y=se) + 
@@ -209,7 +225,7 @@ dat |>
 
 ## SM
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, sm, mean) , y=sm) + 
@@ -220,9 +236,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/sm.png")
 ```
+![](plots/sm.png)
+
 ## EM
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, em, mean) , y=em) + 
@@ -233,9 +251,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/em.png")
 ```
+![](plots/em.png)
+
 ## MC
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, mc, mean) , y=mc) + 
@@ -246,9 +266,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/mc.png")
 ```
+![](plots/mc.png)
+
 ## Altura
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, altura, mean) , y=altura) + 
@@ -259,10 +281,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/altura.png")
 ```
+![](plots/altura.png)
 
 ## Gramos/m lineal
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, gramos_m, mean) , y=gramos_m) + 
@@ -273,10 +296,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/gramos_m.png")
 ```
+![](plots/gramos_m.png)
 
 ## Rinde Kg/m2
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, kg_m2, mean) , y=kg_m2) + 
@@ -287,10 +311,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/kg_m2.png")
 ```
+![](plots/kg_m2.png)
+
 ## Peso de mil granos
 
-
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, pmg, mean) , y=pmg) + 
@@ -301,10 +326,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/pmg.png")
 ```
+![](plots/pmg.png)
 
 ## Biomasa aérea
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, ba, mean) , y=ba) + 
@@ -315,9 +341,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/ba.png")
 ```
+![](plots/ba.png)
+
 ## Índice de cosecha
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, ic, mean) , y=ic) + 
@@ -328,9 +356,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/ic.png")
 ```
+![](plots/ic.png)
+
 ## Espigas/m lineal
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, espigas_m, mean) , y=espigas_m) + 
@@ -341,9 +371,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/espigas_m.png")
 ```
+![](plots/espigas_m.png)
+
 ## Espiguillas/espiga
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, espiguillas_espiga, mean) , y=espiguillas_espiga) + 
@@ -354,9 +386,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/espiguillas_espiga.png")
 ```
+![](plots/espiguillas_espiga.png)
+
 ## Granos/espiga
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, granos_espiga, mean) , y=granos_espiga) + 
@@ -367,10 +401,11 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/granos_espiga.png")
 ```
+![](plots/granos_espiga.png)
 
 ## Peso de granos/espiga
 
-```{r, eval=FALSE}
+```{r}
 dat |> 
   ggplot() + 
   aes(x=fct_reorder(participante, peso_granos_espiga, mean) , y=peso_granos_espiga) + 
@@ -381,6 +416,6 @@ dat |>
 
 #ggsave(last_plot(), h=8, file="plots/peso_granos_espiga.png")
 ```
-
+![](plots/peso_granos_espiga.png)
 
 

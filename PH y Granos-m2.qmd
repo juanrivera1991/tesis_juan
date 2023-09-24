@@ -1,0 +1,53 @@
+---
+title: "datos"
+format: revealjs
+---
+
+#Carga de paquetes
+
+```{r}
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable, 
+               MASS, relaimpo, emmeans, multcomp)
+
+conflicted::conflict_prefer("select", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")
+```
+
+#Modelo 1: PMG
+
+```{r}
+m1<-lm(pmg~participante, data=datos)
+anova(m1)
+```
+##Se rechaza H0 --> Hay efecto del participante
+
+##Tukey con pocas letras
+
+```{r}
+#install.packages('ScottKnott')
+library(ScottKnott)
+m2<-lm(pmg~participante , data=datos)
+anova(m2)
+r1<-SK(m2,which="participante",dispersion="se",sig.level=0.05)
+r1
+```
+
+#Modelo 2: granos/m2
+
+```{r}
+m3<-lm(granos_m2~participante, data=datos)
+anova(m3)
+
+```
+##Se rechaza H0 --> Hay efecto del participante
+
+##Tukey con pocas letras
+
+```{r}
+#install.packages('ScottKnott')
+library(ScottKnott)
+m4<-lm(granos_m2~participante , data=datos)
+anova(m4)
+r2<-SK(m2,which="participante",dispersion="se",sig.level=0.05)
+r2
+```

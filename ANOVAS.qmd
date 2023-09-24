@@ -1,0 +1,86 @@
+---
+title: "datos"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r}
+library(agricolae)
+library(tidyverse)
+library(skimr)
+library(performance)
+library(emmeans)
+library(multcomp)
+
+```
+
+```{r}
+library(readxl)
+dat <- read_excel("data/dato22.xlsx")
+```
+
+```{r}
+outdesign <- design.alpha(dat$genotipo,7,3)
+```
+
+
+```{r}
+outdesign$sketch
+```
+
+
+
+```{r}
+PBIB.test(dat$bloque,dat$genotipo,dat$replica,dat$ph,k=9,alpha=0.05, method = c("REML","ML", "VC"), console = TRUE, group = TRUE)
+```
+
+
+```{r}
+datos$bloque <- as.factor(datos$bloque)
+datos$replica <- as.factor(datos$replica)
+datos$parcela <- as.factor(datos$parcela)
+```
+
+```{r}
+al1 <- PBIB.test(dat$bloque,dat$genotipo,dat$replica,dat$ph,k=9, method = "REML", test = "tukey", alpha = 0.05, console = TRUE, group = TRUE )
+```
+
+
+```{r}
+PBIB.test(juan$bloque,juan$genotipo,juan$replica,juan$ph,k=9,alpha=0.05, method = c("REML"), test=c("lsd"), console = TRUE, group = TRUE)
+```
+
+```{r}
+mod_ph <- with(juan,PBIB.test(bloque,genotipo,replica,ph, k=9, method="REML"))
+mod_ph$ANOVA
+mod_ph$parameters
+mod_ph$statistics
+mod_ph$Fstat
+mod_ph$comparison
+mod_ph$means
+mod_ph$groups
+
+
+png(file="plots/saving_plot2.png",width= 700, height=1200)
+par(mar = c(5, 10, 1, 1))
+plot.group(mod_ph, horiz=TRUE, xlim = c(60,80),  las=2, variation = "IQR", hy=-2, xlab="Peso hectolítrico", main="")
+dev.off()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

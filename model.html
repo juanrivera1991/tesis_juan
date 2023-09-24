@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="model_files/libs/clipboard/clipboard.min.js"></script>
+<script src="model_files/libs/quarto-html/quarto.js"></script>
+<script src="model_files/libs/quarto-html/popper.min.js"></script>
+<script src="model_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="model_files/libs/quarto-html/anchor.min.js"></script>
+<link href="model_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="model_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="model_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="model_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="model_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Model</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Carga de paquetes</p>
+<p>Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)</p>
+<section id="regresion-lineal-multiple" class="level2">
+<h2 class="anchored" data-anchor-id="regresion-lineal-multiple">Regresion lineal multiple</h2>
+<section id="kg_m2" class="level3">
+<h3 class="anchored" data-anchor-id="kg_m2">kg_m2</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = kg_m2 ~ ph + proteina + ba + ic + peso_granos_espiga, 
+    data = dat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.51735 -0.08312 -0.00292  0.08461  0.58202 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)         1.5156878  0.5013306   3.023  0.00286 **
+ph                 -0.0080369  0.0040678  -1.976  0.04969 * 
+proteina           -0.0255850  0.0175616  -1.457  0.14687   
+ba                  0.0010140  0.0005298   1.914  0.05717 . 
+ic                  0.0044899  0.0027336   1.643  0.10220   
+peso_granos_espiga -0.1328646  0.0541167  -2.455  0.01502 * 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1462 on 183 degrees of freedom
+Multiple R-squared:  0.06672,   Adjusted R-squared:  0.04122 
+F-statistic: 2.617 on 5 and 183 DF,  p-value: 0.02595</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Response variable: kg_m2 
+Total response variance: 0.02229157 
+Analysis based on 189 observations 
+
+5 Regressors: 
+ph proteina ba ic peso_granos_espiga 
+Proportion of variance explained by model: 6.67%
+Metrics are normalized to sum to 100% (rela=TRUE). 
+
+Relative importance metrics: 
+
+                          car
+ph                 0.25082030
+proteina           0.05095201
+ba                 0.23849514
+ic                 0.20732094
+peso_granos_espiga 0.25241161</code></pre>
+</div>
+</div>
+<p>Efecto del participante</p>
+<div class="cell">
+<div class="cell-output-display">
+<table id="tab:unnamed-chunk-7" class="huxtable table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Df</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sum Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Mean Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">F value</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Pr(&gt;F)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">62</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.35&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0218</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.962</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.559</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0221</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.011&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.486</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.616</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">124</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.81&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0227</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OK: residuals appear as normally distributed (p = 0.596).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OK: No outliers detected.
+- Based on the following method and threshold: cook (0.5).
+- For variable: (Whole model)</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>NO hay efecto del participante</p>
+</blockquote>
+</section>
+<section id="ph" class="level3">
+<h3 class="anchored" data-anchor-id="ph">ph</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table id="tab:unnamed-chunk-8" class="huxtable table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Df</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sum Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Mean Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">F value</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Pr(&gt;F)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.9&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.83&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0632&nbsp;&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">62</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.62e+03</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">26.2&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">25.6&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.12e-46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">56.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">56.4&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">55&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.97e-11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.09&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.09&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.04&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.156&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.347&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.347</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.338</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.562&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3.05&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3.05&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.97&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0872&nbsp;&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3.69&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3.69&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3.6&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0602&nbsp;&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">119</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.03&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OK: No outliers detected.
+- Based on the following method and threshold: cook (0.9).
+- For variable: (Whole model)</code></pre>
+</div>
+</div>
+<p>Efecto del participante</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OK: No outliers detected.
+- Based on the following method and threshold: cook (0.5).
+- For variable: (Whole model)</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>La distribucion de residuos por particpante tiene diferencias y no por bloque. Modelando varianza por participante…</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="model_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table id="tab:unnamed-chunk-14" class="huxtable table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Df</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sum Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Mean Sq</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">F value</td>
+<td data-quarto-table-cell-role="th" style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Pr(&gt;F)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">62</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.62e+03</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">26.2&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">17.3&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5.05e-39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.9&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.92</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.152&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">124</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">188&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.51</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: right; vertical-align: top; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Results
+                   Means G1 G2 G3 G4
+CRESO              73.57  a         
+Icavert            73.03  a         
+TUNSYR1_ICARDA     73.03  a         
+COLOSSEO           72.37  a         
+Don_Valentín       72.30  a         
+Stojocri3          72.23  a         
+PIETRAFITTA        72.15  a         
+FIGSDRYWET109      72.15  a         
+BOLENGA            72.08  a         
+IDSN46-7167        72.00  a         
+Chahra2            71.93  a         
+MESSAPIA_Icarda    71.72  a         
+Messapia_Italia    71.72  a         
+PLATA_16           71.70  a         
+Bezater            71.33  a         
+IDSN46-7166        71.33  a         
+Buck Perla         71.22  a         
+IDSN46-7157        70.88     b      
+KRONOS             70.73     b      
+Latinur            70.60     b      
+OMBIT1             70.22     b      
+COLORADO           70.22     b      
+Alemanno           70.13     b      
+MCHCB-0161         69.77     b      
+ALTAR_84           69.75     b      
+Serene2            69.53     b      
+MARZAK             69.23     b      
+SVEVO              68.93     b      
+Ammar10            68.78     b      
+EL4X_72            68.33        c   
+IDSN46-7132        68.18        c   
+Altaiski_yanvar    68.05        c   
+JAWHAR             67.97        c   
+Outrob6            67.97        c   
+IDSN46-7104        67.73        c   
+MARJANA            67.73        c   
+Atlast1_ICARDA2    67.52        c   
+IDSN46-7216        67.43        c   
+Normanno           67.43        c   
+Buck Cuarzo        67.30        c   
+EL4X_70            67.13        c   
+Ammar-1            67.07        c   
+Bicrederaa1        67.07        c   
+Tiziana            67.05        c   
+Lebrija            66.98        c   
+SENADUR            66.98        c   
+IDON37-071         66.90        c   
+Berillo            66.75        c   
+Derazejihan        66.62        c   
+BUCK_A             66.57        c   
+Massara1_IRTA      66.50        c   
+Furat-1            66.17        c   
+ESDCB-2015/2016-52 66.07        c   
+Icarnada           65.75        c   
+OMSNIMA-1          65.45        c   
+KOFA               65.17        c   
+Quabrach-1         65.02        c   
+Sohag4             63.28           d
+BI Charito         62.90           d
+CBW_08133          62.85           d
+Icaverve           62.75           d
+EL4X_59            62.48           d
+Icacube            62.40           d
+
+Sig.level
+ 0.05
+
+Statistics
+       lambda chisq dfchisq  pvalue evmean dferror
+Clus 1 164.88    74    55.2 7.3e-13    0.5     124
+Clus 2  66.68    38    25.4 1.5e-05    0.5     124
+Clus 3  12.42    25    14.9 6.4e-01    0.5     124
+Clus 4  10.60    19    10.5 4.3e-01    0.5     124
+Clus 5 109.96    44    29.8 4.0e-11    0.5     124
+Clus 6  35.60    37    24.5 6.9e-02    0.5     124
+Clus 7   0.96    11     5.3 9.7e-01    0.5     124
+
+
+Clusters
+#################  Cluster  1  ################
+{G1}: CRESO Icavert TUNSYR1_ICARDA COLOSSEO Don_Valentín Stojocri3 PIETRAFITTA FIGSDRYWET109 BOLENGA IDSN46-7167 Chahra2 MESSAPIA_Icarda Messapia_Italia PLATA_16 Bezater IDSN46-7166 Buck Perla IDSN46-7157 KRONOS Latinur OMBIT1 COLORADO Alemanno MCHCB-0161 ALTAR_84 Serene2 MARZAK SVEVO Ammar10
+{G2}: EL4X_72 IDSN46-7132 Altaiski_yanvar JAWHAR Outrob6 IDSN46-7104 MARJANA Atlast1_ICARDA2 IDSN46-7216 Normanno Buck Cuarzo EL4X_70 Ammar-1 Bicrederaa1 Tiziana Lebrija SENADUR IDON37-071 Berillo Derazejihan BUCK_A Massara1_IRTA Furat-1 ESDCB-2015/2016-52 Icarnada OMSNIMA-1 KOFA Quabrach-1 Sohag4 BI Charito CBW_08133 Icaverve EL4X_59 Icacube
+#################  Cluster  2  ################
+{G1}: CRESO Icavert TUNSYR1_ICARDA COLOSSEO Don_Valentín Stojocri3 PIETRAFITTA FIGSDRYWET109 BOLENGA IDSN46-7167 Chahra2 MESSAPIA_Icarda Messapia_Italia PLATA_16 Bezater IDSN46-7166 Buck Perla
+{G2}: IDSN46-7157 KRONOS Latinur OMBIT1 COLORADO Alemanno MCHCB-0161 ALTAR_84 Serene2 MARZAK SVEVO Ammar10
+#################  Cluster  3  ################
+{G1}: CRESO Icavert TUNSYR1_ICARDA
+{G2}: COLOSSEO Don_Valentín Stojocri3 PIETRAFITTA FIGSDRYWET109 BOLENGA IDSN46-7167 Chahra2 MESSAPIA_Icarda Messapia_Italia PLATA_16 Bezater IDSN46-7166 Buck Perla
+#################  Cluster  4  ################
+{G1}: IDSN46-7157 KRONOS Latinur OMBIT1 COLORADO Alemanno
+{G2}: MCHCB-0161 ALTAR_84 Serene2 MARZAK SVEVO Ammar10
+#################  Cluster  5  ################
+{G1}: EL4X_72 IDSN46-7132 Altaiski_yanvar JAWHAR Outrob6 IDSN46-7104 MARJANA Atlast1_ICARDA2 IDSN46-7216 Normanno Buck Cuarzo EL4X_70 Ammar-1 Bicrederaa1 Tiziana Lebrija SENADUR IDON37-071 Berillo Derazejihan BUCK_A Massara1_IRTA Furat-1 ESDCB-2015/2016-52 Icarnada OMSNIMA-1 KOFA Quabrach-1
+{G2}: Sohag4 BI Charito CBW_08133 Icaverve EL4X_59 Icacube
+#################  Cluster  6  ################
+{G1}: EL4X_72 IDSN46-7132 Altaiski_yanvar JAWHAR Outrob6 IDSN46-7104 MARJANA Atlast1_ICARDA2 IDSN46-7216 Normanno Buck Cuarzo EL4X_70 Ammar-1 Bicrederaa1 Tiziana Lebrija SENADUR IDON37-071 Berillo
+{G2}: Derazejihan BUCK_A Massara1_IRTA Furat-1 ESDCB-2015/2016-52 Icarnada OMSNIMA-1 KOFA Quabrach-1
+#################  Cluster  7  ################
+{G1}: Sohag4 BI Charito CBW_08133 Icaverve
+{G2}: EL4X_59 Icacube</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pairwise comparisons using Wilcoxon rank sum exact test 
+
+data:  dat$ph and dat$participante 
+
+                   Alemanno Altaiski_yanvar ALTAR_84 Ammar-1 Ammar10
+Altaiski_yanvar    0.14     -               -        -       -      
+ALTAR_84           0.58     0.14            -        -       -      
+Ammar-1            0.14     0.16            0.14     -       -      
+Ammar10            0.14     0.25            0.25     0.14    -      
+Atlast1_ICARDA2    0.14     0.33            0.14     0.45    0.14   
+Berillo            0.14     0.14            0.14     0.73    0.14   
+Bezater            0.16     0.14            0.14     0.14    0.14   
+BI Charito         0.14     0.14            0.14     0.14    0.14   
+Bicrederaa1        0.14     0.16            0.14     1.00    0.14   
+BOLENGA            0.14     0.14            0.14     0.14    0.14   
+Buck Cuarzo        0.14     0.14            0.14     0.73    0.14   
+Buck Perla         0.14     0.14            0.14     0.14    0.14   
+BUCK_A             0.16     0.74            0.45     0.74    1.00   
+CBW_08133          0.14     0.14            0.14     0.14    0.14   
+Chahra2            0.14     0.14            0.14     0.14    0.14   
+COLORADO           0.85     0.14            0.47     0.14    0.14   
+COLOSSEO           0.14     0.14            0.14     0.14    0.14   
+CRESO              0.14     0.14            0.14     0.14    0.14   
+Derazejihan        0.14     0.14            0.14     0.45    0.14   
+Don_Valentín       0.14     0.14            0.14     0.14    0.14   
+EL4X_59            0.14     0.14            0.14     0.14    0.14   
+EL4X_70            0.14     0.14            0.14     1.00    0.14   
+EL4X_72            0.14     0.58            0.14     0.14    0.45   
+ESDCB-2015/2016-52 0.14     0.14            0.14     0.16    0.14   
+FIGSDRYWET109      0.14     0.14            0.14     0.14    0.14   
+Furat-1            0.14     0.14            0.14     0.25    0.14   
+Icacube            0.14     0.14            0.14     0.14    0.14   
+Icarnada           0.14     0.85            0.14     0.74    0.16   
+Icavert            0.14     0.14            0.14     0.14    0.14   
+Icaverve           0.14     0.14            0.14     0.14    0.14   
+IDON37-071         0.14     0.14            0.14     0.85    0.14   
+IDSN46-7104        0.14     0.58            0.14     0.25    0.14   
+IDSN46-7132        0.14     0.85            0.14     0.14    0.33   
+IDSN46-7157        0.45     0.14            0.21     0.14    0.14   
+IDSN46-7166        0.33     0.14            0.14     0.14    0.14   
+IDSN46-7167        0.14     0.14            0.14     0.14    0.14   
+IDSN46-7216        0.14     0.47            0.14     0.85    0.16   
+JAWHAR             0.14     1.00            0.14     0.16    0.16   
+KOFA               0.14     0.14            0.14     0.14    0.14   
+KRONOS             0.58     0.14            0.16     0.14    0.14   
+Latinur            0.73     0.14            0.24     0.14    0.14   
+Lebrija            0.14     0.25            0.14     1.00    0.14   
+MARJANA            0.14     0.58            0.14     0.25    0.14   
+MARZAK             0.47     0.25            0.58     0.14    0.85   
+Massara1_IRTA      0.47     1.00            0.47     0.74    0.85   
+MCHCB-0161         0.85     0.14            1.00     0.14    0.25   
+MESSAPIA_Icarda    0.14     0.14            0.14     0.14    0.14   
+Messapia_Italia    0.14     0.14            0.14     0.14    0.14   
+Normanno           0.14     0.33            0.14     0.58    0.14   
+OMBIT1             0.85     0.14            0.47     0.14    0.14   
+OMSNIMA-1          0.14     0.33            0.14     0.85    0.14   
+Outrob6            0.14     1.00            0.14     0.25    0.25   
+PIETRAFITTA        0.14     0.14            0.14     0.14    0.14   
+PLATA_16           0.16     0.14            0.14     0.14    0.14   
+Quabrach-1         0.14     0.14            0.14     0.14    0.14   
+SENADUR            0.14     0.16            0.14     1.00    0.14   
+Serene2            0.47     0.14            0.85     0.14    0.33   
+Sohag4             0.14     0.14            0.14     0.14    0.14   
+Stojocri3          0.14     0.14            0.14     0.14    0.14   
+SVEVO              0.14     0.16            0.21     0.14    1.00   
+Tiziana            0.14     0.14            0.14     1.00    0.14   
+TUNSYR1_ICARDA     0.14     0.14            0.14     0.14    0.14   
+                   Atlast1_ICARDA2 Berillo Bezater BI Charito Bicrederaa1
+Altaiski_yanvar    -               -       -       -          -          
+ALTAR_84           -               -       -       -          -          
+Ammar-1            -               -       -       -          -          
+Ammar10            -               -       -       -          -          
+Atlast1_ICARDA2    -               -       -       -          -          
+Berillo            0.24            -       -       -          -          
+Bezater            0.14            0.14    -       -          -          
+BI Charito         0.14            0.14    0.14    -          -          
+Bicrederaa1        0.58            0.85    0.14    0.14       -          
+BOLENGA            0.14            0.14    0.16    0.14       0.14       
+Buck Cuarzo        0.73            0.73    0.14    0.14       0.73       
+Buck Perla         0.14            0.14    0.73    0.14       0.14       
+BUCK_A             0.74            0.73    0.14    0.73       0.74       
+CBW_08133          0.14            0.14    0.14    1.00       0.14       
+Chahra2            0.14            0.14    0.33    0.14       0.14       
+COLORADO           0.14            0.14    0.14    0.14       0.14       
+COLOSSEO           0.14            0.14    0.14    0.14       0.14       
+CRESO              0.14            0.14    0.14    0.14       0.14       
+Derazejihan        0.16            0.73    0.14    0.14       0.58       
+Don_Valentín       0.14            0.14    0.14    0.14       0.14       
+EL4X_59            0.14            0.14    0.14    0.45       0.14       
+EL4X_70            0.45            0.42    0.14    0.14       1.00       
+EL4X_72            0.14            0.14    0.14    0.14       0.14       
+ESDCB-2015/2016-52 0.14            0.21    0.14    0.14       0.25       
+FIGSDRYWET109      0.14            0.14    0.14    0.14       0.14       
+Furat-1            0.14            0.45    0.14    0.14       0.33       
+Icacube            0.14            0.14    0.14    0.45       0.14       
+Icarnada           0.74            0.73    0.14    0.73       0.74       
+Icavert            0.14            0.14    0.14    0.14       0.14       
+Icaverve           0.14            0.14    0.14    1.00       0.14       
+IDON37-071         0.25            0.85    0.14    0.14       0.85       
+IDSN46-7104        0.58            0.16    0.14    0.14       0.33       
+IDSN46-7132        0.16            0.14    0.14    0.14       0.14       
+IDSN46-7157        0.14            0.14    0.58    0.14       0.14       
+IDSN46-7166        0.14            0.14    0.85    0.14       0.14       
+IDSN46-7167        0.14            0.14    0.33    0.14       0.14       
+IDSN46-7216        0.85            0.45    0.14    0.14       1.00       
+JAWHAR             0.33            0.14    0.14    0.14       0.16       
+KOFA               0.14            0.14    0.14    0.14       0.14       
+KRONOS             0.14            0.14    0.16    0.14       0.14       
+Latinur            0.14            0.14    0.14    0.14       0.14       
+Lebrija            0.58            1.00    0.14    0.14       1.00       
+MARJANA            0.58            0.16    0.14    0.14       0.33       
+MARZAK             0.14            0.14    0.14    0.14       0.14       
+Massara1_IRTA      0.74            0.73    0.14    0.73       0.74       
+MCHCB-0161         0.14            0.14    0.14    0.14       0.14       
+MESSAPIA_Icarda    0.14            0.14    0.47    0.14       0.14       
+Messapia_Italia    0.14            0.14    0.47    0.14       0.14       
+Normanno           1.00            0.24    0.14    0.14       0.58       
+OMBIT1             0.14            0.14    0.14    0.14       0.14       
+OMSNIMA-1          1.00            0.73    0.14    0.73       0.85       
+Outrob6            0.47            0.16    0.14    0.14       0.33       
+PIETRAFITTA        0.14            0.14    0.16    0.14       0.14       
+PLATA_16           0.14            0.14    0.73    0.14       0.14       
+Quabrach-1         0.14            0.14    0.14    0.14       0.14       
+SENADUR            0.33            0.73    0.14    0.14       1.00       
+Serene2            0.14            0.14    0.14    0.14       0.14       
+Sohag4             0.14            0.14    0.14    0.23       0.14       
+Stojocri3          0.14            0.14    0.16    0.14       0.14       
+SVEVO              0.14            0.14    0.14    0.14       0.14       
+Tiziana            0.45            0.71    0.14    0.14       1.00       
+TUNSYR1_ICARDA     0.14            0.14    0.14    0.14       0.14       
+                   BOLENGA Buck Cuarzo Buck Perla BUCK_A CBW_08133 Chahra2
+Altaiski_yanvar    -       -           -          -      -         -      
+ALTAR_84           -       -           -          -      -         -      
+Ammar-1            -       -           -          -      -         -      
+Ammar10            -       -           -          -      -         -      
+Atlast1_ICARDA2    -       -           -          -      -         -      
+Berillo            -       -           -          -      -         -      
+Bezater            -       -           -          -      -         -      
+BI Charito         -       -           -          -      -         -      
+Bicrederaa1        -       -           -          -      -         -      
+BOLENGA            -       -           -          -      -         -      
+Buck Cuarzo        0.14    -           -          -      -         -      
+Buck Perla         0.14    0.14        -          -      -         -      
+BUCK_A             0.14    0.73        0.14       -      -         -      
+CBW_08133          0.14    0.14        0.14       0.74   -         -      
+Chahra2            0.85    0.14        0.14       0.14   0.14      -      
+COLORADO           0.14    0.14        0.14       0.14   0.14      0.14   
+COLOSSEO           0.74    0.14        0.14       0.14   0.14      0.58   
+CRESO              0.14    0.14        0.14       0.14   0.14      0.14   
+Derazejihan        0.14    0.14        0.14       0.74   0.14      0.14   
+Don_Valentín       0.73    0.14        0.14       0.14   0.14      0.45   
+EL4X_59            0.14    0.14        0.14       0.74   0.58      0.14   
+EL4X_70            0.14    0.73        0.14       0.73   0.14      0.14   
+EL4X_72            0.14    0.14        0.14       0.74   0.14      0.14   
+ESDCB-2015/2016-52 0.14    0.14        0.14       0.74   0.14      0.14   
+FIGSDRYWET109      1.00    0.14        0.14       0.14   0.14      0.85   
+Furat-1            0.14    0.14        0.14       0.74   0.14      0.14   
+Icacube            0.14    0.14        0.14       0.74   0.45      0.14   
+Icarnada           0.14    0.73        0.14       0.58   0.74      0.14   
+Icavert            0.16    0.14        0.14       0.14   0.14      0.14   
+Icaverve           0.14    0.14        0.14       0.74   1.00      0.14   
+IDON37-071         0.14    0.73        0.14       0.74   0.14      0.14   
+IDSN46-7104        0.14    0.14        0.14       0.74   0.14      0.14   
+IDSN46-7132        0.14    0.14        0.14       0.74   0.14      0.14   
+IDSN46-7157        0.16    0.14        0.73       0.14   0.14      0.24   
+IDSN46-7166        0.47    0.14        0.73       0.14   0.14      0.58   
+IDSN46-7167        1.00    0.14        0.14       0.14   0.14      1.00   
+IDSN46-7216        0.14    0.73        0.14       0.74   0.14      0.14   
+JAWHAR             0.14    0.14        0.14       0.74   0.14      0.14   
+KOFA               0.14    0.14        0.14       0.74   0.14      0.14   
+KRONOS             0.14    0.14        0.14       0.14   0.14      0.14   
+Latinur            0.14    0.14        0.14       0.14   0.14      0.14   
+Lebrija            0.14    0.73        0.14       0.74   0.14      0.14   
+MARJANA            0.14    0.14        0.14       0.74   0.14      0.14   
+MARZAK             0.14    0.14        0.14       0.85   0.14      0.14   
+Massara1_IRTA      0.14    0.73        0.14       1.00   0.74      0.14   
+MCHCB-0161         0.14    0.14        0.14       0.33   0.14      0.14   
+MESSAPIA_Icarda    0.58    0.14        0.45       0.14   0.14      0.58   
+Messapia_Italia    0.58    0.14        0.45       0.14   0.14      0.58   
+Normanno           0.14    0.73        0.14       0.74   0.14      0.14   
+OMBIT1             0.14    0.14        0.14       0.14   0.14      0.14   
+OMSNIMA-1          0.14    0.73        0.14       0.58   0.74      0.14   
+Outrob6            0.14    0.14        0.14       0.74   0.14      0.14   
+PIETRAFITTA        1.00    0.14        0.14       0.14   0.14      0.58   
+PLATA_16           0.73    0.14        0.73       0.14   0.14      1.00   
+Quabrach-1         0.14    0.14        0.14       0.74   0.14      0.14   
+SENADUR            0.14    0.73        0.14       0.74   0.14      0.14   
+Serene2            0.14    0.14        0.14       0.58   0.14      0.14   
+Sohag4             0.14    0.14        0.14       0.73   0.33      0.14   
+Stojocri3          0.85    0.14        0.14       0.14   0.14      0.58   
+SVEVO              0.14    0.14        0.14       1.00   0.14      0.14   
+Tiziana            0.14    0.73        0.14       0.73   0.14      0.14   
+TUNSYR1_ICARDA     0.25    0.14        0.14       0.14   0.14      0.16   
+                   COLORADO COLOSSEO CRESO Derazejihan Don_Valentín EL4X_59
+Altaiski_yanvar    -        -        -     -           -            -      
+ALTAR_84           -        -        -     -           -            -      
+Ammar-1            -        -        -     -           -            -      
+Ammar10            -        -        -     -           -            -      
+Atlast1_ICARDA2    -        -        -     -           -            -      
+Berillo            -        -        -     -           -            -      
+Bezater            -        -        -     -           -            -      
+BI Charito         -        -        -     -           -            -      
+Bicrederaa1        -        -        -     -           -            -      
+BOLENGA            -        -        -     -           -            -      
+Buck Cuarzo        -        -        -     -           -            -      
+Buck Perla         -        -        -     -           -            -      
+BUCK_A             -        -        -     -           -            -      
+CBW_08133          -        -        -     -           -            -      
+Chahra2            -        -        -     -           -            -      
+COLORADO           -        -        -     -           -            -      
+COLOSSEO           0.14     -        -     -           -            -      
+CRESO              0.14     0.14     -     -           -            -      
+Derazejihan        0.14     0.14     0.14  -           -            -      
+Don_Valentín       0.14     1.00     0.14  0.14        -            -      
+EL4X_59            0.14     0.14     0.14  0.14        0.14         -      
+EL4X_70            0.14     0.14     0.14  0.24        0.14         0.14   
+EL4X_72            0.14     0.14     0.14  0.14        0.14         0.14   
+ESDCB-2015/2016-52 0.14     0.14     0.14  0.33        0.14         0.14   
+FIGSDRYWET109      0.14     0.85     0.14  0.14        0.73         0.14   
+Furat-1            0.14     0.14     0.14  0.58        0.14         0.14   
+Icacube            0.14     0.14     0.14  0.14        0.14         1.00   
+Icarnada           0.14     0.14     0.14  0.74        0.14         0.74   
+Icavert            0.14     0.47     0.45  0.14        0.16         0.14   
+Icaverve           0.14     0.14     0.14  0.14        0.14         0.58   
+IDON37-071         0.14     0.14     0.14  0.58        0.14         0.14   
+IDSN46-7104        0.14     0.14     0.14  0.14        0.14         0.14   
+IDSN46-7132        0.14     0.14     0.14  0.14        0.14         0.14   
+IDSN46-7157        0.45     0.14     0.14  0.14        0.14         0.14   
+IDSN46-7166        0.16     0.33     0.14  0.14        0.33         0.14   
+IDSN46-7167        0.14     0.74     0.14  0.14        0.73         0.14   
+IDSN46-7216        0.14     0.14     0.14  0.33        0.14         0.14   
+JAWHAR             0.14     0.14     0.14  0.14        0.14         0.14   
+KOFA               0.14     0.14     0.14  0.14        0.14         0.14   
+KRONOS             0.33     0.14     0.14  0.14        0.14         0.14   
+Latinur            0.43     0.14     0.14  0.14        0.14         0.14   
+Lebrija            0.14     0.14     0.14  0.85        0.14         0.14   
+MARJANA            0.14     0.14     0.14  0.14        0.14         0.14   
+MARZAK             0.47     0.14     0.14  0.14        0.14         0.14   
+Massara1_IRTA      0.47     0.14     0.14  0.74        0.14         0.74   
+MCHCB-0161         0.58     0.14     0.14  0.14        0.14         0.14   
+MESSAPIA_Icarda    0.14     0.33     0.14  0.14        0.16         0.14   
+Messapia_Italia    0.14     0.33     0.14  0.14        0.16         0.14   
+Normanno           0.14     0.14     0.14  0.25        0.14         0.14   
+OMBIT1             1.00     0.14     0.14  0.14        0.14         0.14   
+OMSNIMA-1          0.14     0.14     0.14  0.74        0.14         0.74   
+Outrob6            0.14     0.14     0.14  0.14        0.14         0.14   
+PIETRAFITTA        0.14     0.85     0.14  0.14        1.00         0.14   
+PLATA_16           0.14     0.47     0.14  0.14        0.58         0.14   
+Quabrach-1         0.14     0.14     0.14  0.14        0.14         0.14   
+SENADUR            0.14     0.14     0.14  0.58        0.14         0.14   
+Serene2            0.33     0.14     0.14  0.14        0.14         0.14   
+Sohag4             0.14     0.14     0.14  0.14        0.14         0.16   
+Stojocri3          0.14     0.85     0.14  0.14        1.00         0.14   
+SVEVO              0.14     0.14     0.14  0.14        0.14         0.14   
+Tiziana            0.14     0.14     0.14  0.33        0.14         0.14   
+TUNSYR1_ICARDA     0.14     0.45     0.45  0.14        0.33         0.14   
+                   EL4X_70 EL4X_72 ESDCB-2015/2016-52 FIGSDRYWET109 Furat-1
+Altaiski_yanvar    -       -       -                  -             -      
+ALTAR_84           -       -       -                  -             -      
+Ammar-1            -       -       -                  -             -      
+Ammar10            -       -       -                  -             -      
+Atlast1_ICARDA2    -       -       -                  -             -      
+Berillo            -       -       -                  -             -      
+Bezater            -       -       -                  -             -      
+BI Charito         -       -       -                  -             -      
+Bicrederaa1        -       -       -                  -             -      
+BOLENGA            -       -       -                  -             -      
+Buck Cuarzo        -       -       -                  -             -      
+Buck Perla         -       -       -                  -             -      
+BUCK_A             -       -       -                  -             -      
+CBW_08133          -       -       -                  -             -      
+Chahra2            -       -       -                  -             -      
+COLORADO           -       -       -                  -             -      
+COLOSSEO           -       -       -                  -             -      
+CRESO              -       -       -                  -             -      
+Derazejihan        -       -       -                  -             -      
+Don_Valentín       -       -       -                  -             -      
+EL4X_59            -       -       -                  -             -      
+EL4X_70            -       -       -                  -             -      
+EL4X_72            0.14    -       -                  -             -      
+ESDCB-2015/2016-52 0.14    0.14    -                  -             -      
+FIGSDRYWET109      0.14    0.14    0.14               -             -      
+Furat-1            0.16    0.14    1.00               0.14          -      
+Icacube            0.14    0.14    0.14               0.14          0.14   
+Icarnada           0.73    0.45    0.74               0.14          0.74   
+Icavert            0.14    0.14    0.14               0.16          0.14   
+Icaverve           0.14    0.14    0.14               0.14          0.14   
+IDON37-071         0.73    0.14    0.16               0.14          0.25   
+IDSN46-7104        0.21    0.16    0.14               0.14          0.14   
+IDSN46-7132        0.14    0.73    0.14               0.14          0.14   
+IDSN46-7157        0.14    0.14    0.14               0.14          0.14   
+IDSN46-7166        0.14    0.14    0.14               0.47          0.14   
+IDSN46-7167        0.14    0.14    0.14               1.00          0.14   
+IDSN46-7216        1.00    0.33    0.14               0.14          0.14   
+JAWHAR             0.14    0.45    0.14               0.14          0.14   
+KOFA               0.14    0.14    0.14               0.14          0.16   
+KRONOS             0.14    0.14    0.14               0.14          0.14   
+Latinur            0.14    0.14    0.14               0.14          0.14   
+Lebrija            1.00    0.14    0.25               0.14          0.33   
+MARJANA            0.21    0.16    0.14               0.14          0.14   
+MARZAK             0.14    0.33    0.14               0.14          0.14   
+Massara1_IRTA      0.73    1.00    0.74               0.14          0.74   
+MCHCB-0161         0.14    0.14    0.14               0.14          0.14   
+MESSAPIA_Icarda    0.14    0.14    0.14               0.45          0.14   
+Messapia_Italia    0.14    0.14    0.14               0.45          0.14   
+Normanno           0.45    0.14    0.14               0.14          0.14   
+OMBIT1             0.14    0.14    0.14               0.14          0.14   
+OMSNIMA-1          0.73    0.14    0.74               0.14          0.74   
+Outrob6            0.21    0.58    0.14               0.14          0.14   
+PIETRAFITTA        0.14    0.14    0.14               1.00          0.14   
+PLATA_16           0.14    0.14    0.14               0.58          0.14   
+Quabrach-1         0.14    0.14    0.33               0.14          0.25   
+SENADUR            1.00    0.14    0.16               0.14          0.25   
+Serene2            0.14    0.14    0.14               0.14          0.14   
+Sohag4             0.14    0.14    0.14               0.14          0.14   
+Stojocri3          0.14    0.14    0.14               1.00          0.14   
+SVEVO              0.14    0.24    0.14               0.14          0.14   
+Tiziana            1.00    0.14    0.16               0.14          0.24   
+TUNSYR1_ICARDA     0.14    0.14    0.14               0.25          0.14   
+                   Icacube Icarnada Icavert Icaverve IDON37-071 IDSN46-7104
+Altaiski_yanvar    -       -        -       -        -          -          
+ALTAR_84           -       -        -       -        -          -          
+Ammar-1            -       -        -       -        -          -          
+Ammar10            -       -        -       -        -          -          
+Atlast1_ICARDA2    -       -        -       -        -          -          
+Berillo            -       -        -       -        -          -          
+Bezater            -       -        -       -        -          -          
+BI Charito         -       -        -       -        -          -          
+Bicrederaa1        -       -        -       -        -          -          
+BOLENGA            -       -        -       -        -          -          
+Buck Cuarzo        -       -        -       -        -          -          
+Buck Perla         -       -        -       -        -          -          
+BUCK_A             -       -        -       -        -          -          
+CBW_08133          -       -        -       -        -          -          
+Chahra2            -       -        -       -        -          -          
+COLORADO           -       -        -       -        -          -          
+COLOSSEO           -       -        -       -        -          -          
+CRESO              -       -        -       -        -          -          
+Derazejihan        -       -        -       -        -          -          
+Don_Valentín       -       -        -       -        -          -          
+EL4X_59            -       -        -       -        -          -          
+EL4X_70            -       -        -       -        -          -          
+EL4X_72            -       -        -       -        -          -          
+ESDCB-2015/2016-52 -       -        -       -        -          -          
+FIGSDRYWET109      -       -        -       -        -          -          
+Furat-1            -       -        -       -        -          -          
+Icacube            -       -        -       -        -          -          
+Icarnada           0.74    -        -       -        -          -          
+Icavert            0.14    0.14     -       -        -          -          
+Icaverve           0.33    0.74     0.14    -        -          -          
+IDON37-071         0.14    0.74     0.14    0.14     -          -          
+IDSN46-7104        0.14    0.85     0.14    0.14     0.16       -          
+IDSN46-7132        0.14    0.85     0.14    0.14     0.14       0.45       
+IDSN46-7157        0.14    0.14     0.14    0.14     0.14       0.14       
+IDSN46-7166        0.14    0.14     0.14    0.14     0.14       0.14       
+IDSN46-7167        0.14    0.14     0.16    0.14     0.14       0.14       
+IDSN46-7216        0.14    1.00     0.14    0.14     0.58       0.74       
+JAWHAR             0.14    1.00     0.14    0.14     0.14       0.58       
+KOFA               0.14    0.74     0.14    0.14     0.14       0.14       
+KRONOS             0.14    0.14     0.14    0.14     0.14       0.14       
+Latinur            0.14    0.14     0.14    0.14     0.14       0.14       
+Lebrija            0.14    0.74     0.14    0.14     1.00       0.33       
+MARJANA            0.14    0.85     0.14    0.14     0.16       1.00       
+MARZAK             0.14    0.16     0.14    0.14     0.14       0.14       
+Massara1_IRTA      0.74    0.73     0.14    0.74     0.74       0.74       
+MCHCB-0161         0.14    0.14     0.14    0.14     0.14       0.14       
+MESSAPIA_Icarda    0.14    0.14     0.14    0.14     0.14       0.14       
+Messapia_Italia    0.14    0.14     0.14    0.14     0.14       0.14       
+Normanno           0.14    0.74     0.14    0.14     0.33       0.58       
+OMBIT1             0.14    0.14     0.14    0.14     0.14       0.14       
+OMSNIMA-1          0.74    0.58     0.14    0.74     0.74       0.58       
+Outrob6            0.14    0.85     0.14    0.14     0.16       0.73       
+PIETRAFITTA        0.14    0.14     0.16    0.14     0.14       0.14       
+PLATA_16           0.14    0.14     0.16    0.14     0.14       0.14       
+Quabrach-1         0.14    0.74     0.14    0.14     0.14       0.14       
+SENADUR            0.14    0.74     0.14    0.14     1.00       0.25       
+Serene2            0.14    0.14     0.14    0.14     0.14       0.14       
+Sohag4             0.16    0.73     0.14    0.33     0.14       0.14       
+Stojocri3          0.14    0.14     0.33    0.14     0.14       0.14       
+SVEVO              0.14    0.14     0.14    0.14     0.14       0.14       
+Tiziana            0.14    0.73     0.14    0.14     0.85       0.21       
+TUNSYR1_ICARDA     0.14    0.14     1.00    0.14     0.14       0.14       
+                   IDSN46-7132 IDSN46-7157 IDSN46-7166 IDSN46-7167 IDSN46-7216
+Altaiski_yanvar    -           -           -           -           -          
+ALTAR_84           -           -           -           -           -          
+Ammar-1            -           -           -           -           -          
+Ammar10            -           -           -           -           -          
+Atlast1_ICARDA2    -           -           -           -           -          
+Berillo            -           -           -           -           -          
+Bezater            -           -           -           -           -          
+BI Charito         -           -           -           -           -          
+Bicrederaa1        -           -           -           -           -          
+BOLENGA            -           -           -           -           -          
+Buck Cuarzo        -           -           -           -           -          
+Buck Perla         -           -           -           -           -          
+BUCK_A             -           -           -           -           -          
+CBW_08133          -           -           -           -           -          
+Chahra2            -           -           -           -           -          
+COLORADO           -           -           -           -           -          
+COLOSSEO           -           -           -           -           -          
+CRESO              -           -           -           -           -          
+Derazejihan        -           -           -           -           -          
+Don_Valentín       -           -           -           -           -          
+EL4X_59            -           -           -           -           -          
+EL4X_70            -           -           -           -           -          
+EL4X_72            -           -           -           -           -          
+ESDCB-2015/2016-52 -           -           -           -           -          
+FIGSDRYWET109      -           -           -           -           -          
+Furat-1            -           -           -           -           -          
+Icacube            -           -           -           -           -          
+Icarnada           -           -           -           -           -          
+Icavert            -           -           -           -           -          
+Icaverve           -           -           -           -           -          
+IDON37-071         -           -           -           -           -          
+IDSN46-7104        -           -           -           -           -          
+IDSN46-7132        -           -           -           -           -          
+IDSN46-7157        0.14        -           -           -           -          
+IDSN46-7166        0.14        0.45        -           -           -          
+IDSN46-7167        0.14        0.24        0.47        -           -          
+IDSN46-7216        0.47        0.14        0.14        0.14        -          
+JAWHAR             0.85        0.14        0.14        0.14        0.58       
+KOFA               0.14        0.14        0.14        0.14        0.14       
+KRONOS             0.14        1.00        0.45        0.14        0.14       
+Latinur            0.14        1.00        0.21        0.14        0.14       
+Lebrija            0.16        0.14        0.14        0.14        0.58       
+MARJANA            0.45        0.14        0.14        0.14        0.74       
+MARZAK             0.25        0.14        0.14        0.14        0.16       
+Massara1_IRTA      1.00        0.14        0.14        0.14        0.85       
+MCHCB-0161         0.14        0.14        0.14        0.14        0.14       
+MESSAPIA_Icarda    0.14        0.24        0.74        0.58        0.14       
+Messapia_Italia    0.14        0.24        0.74        0.58        0.14       
+Normanno           0.16        0.14        0.14        0.14        1.00       
+OMBIT1             0.14        0.45        0.16        0.14        0.14       
+OMSNIMA-1          0.16        0.14        0.14        0.14        1.00       
+Outrob6            0.85        0.14        0.14        0.14        0.47       
+PIETRAFITTA        0.14        0.16        0.33        0.85        0.14       
+PLATA_16           0.14        0.33        0.58        0.85        0.14       
+Quabrach-1         0.14        0.14        0.14        0.14        0.14       
+SENADUR            0.14        0.14        0.14        0.14        0.58       
+Serene2            0.14        0.14        0.14        0.14        0.14       
+Sohag4             0.14        0.14        0.14        0.14        0.14       
+Stojocri3          0.14        0.16        0.33        0.74        0.14       
+SVEVO              0.24        0.14        0.14        0.14        0.14       
+Tiziana            0.14        0.14        0.14        0.14        1.00       
+TUNSYR1_ICARDA     0.14        0.14        0.16        0.25        0.14       
+                   JAWHAR KOFA KRONOS Latinur Lebrija MARJANA MARZAK
+Altaiski_yanvar    -      -    -      -       -       -       -     
+ALTAR_84           -      -    -      -       -       -       -     
+Ammar-1            -      -    -      -       -       -       -     
+Ammar10            -      -    -      -       -       -       -     
+Atlast1_ICARDA2    -      -    -      -       -       -       -     
+Berillo            -      -    -      -       -       -       -     
+Bezater            -      -    -      -       -       -       -     
+BI Charito         -      -    -      -       -       -       -     
+Bicrederaa1        -      -    -      -       -       -       -     
+BOLENGA            -      -    -      -       -       -       -     
+Buck Cuarzo        -      -    -      -       -       -       -     
+Buck Perla         -      -    -      -       -       -       -     
+BUCK_A             -      -    -      -       -       -       -     
+CBW_08133          -      -    -      -       -       -       -     
+Chahra2            -      -    -      -       -       -       -     
+COLORADO           -      -    -      -       -       -       -     
+COLOSSEO           -      -    -      -       -       -       -     
+CRESO              -      -    -      -       -       -       -     
+Derazejihan        -      -    -      -       -       -       -     
+Don_Valentín       -      -    -      -       -       -       -     
+EL4X_59            -      -    -      -       -       -       -     
+EL4X_70            -      -    -      -       -       -       -     
+EL4X_72            -      -    -      -       -       -       -     
+ESDCB-2015/2016-52 -      -    -      -       -       -       -     
+FIGSDRYWET109      -      -    -      -       -       -       -     
+Furat-1            -      -    -      -       -       -       -     
+Icacube            -      -    -      -       -       -       -     
+Icarnada           -      -    -      -       -       -       -     
+Icavert            -      -    -      -       -       -       -     
+Icaverve           -      -    -      -       -       -       -     
+IDON37-071         -      -    -      -       -       -       -     
+IDSN46-7104        -      -    -      -       -       -       -     
+IDSN46-7132        -      -    -      -       -       -       -     
+IDSN46-7157        -      -    -      -       -       -       -     
+IDSN46-7166        -      -    -      -       -       -       -     
+IDSN46-7167        -      -    -      -       -       -       -     
+IDSN46-7216        -      -    -      -       -       -       -     
+JAWHAR             -      -    -      -       -       -       -     
+KOFA               0.14   -    -      -       -       -       -     
+KRONOS             0.14   0.14 -      -       -       -       -     
+Latinur            0.14   0.14 0.73   -       -       -       -     
+Lebrija            0.25   0.14 0.14   0.14    -       -       -     
+MARJANA            0.58   0.14 0.14   0.14    0.33    -       -     
+MARZAK             0.16   0.14 0.14   0.16    0.14    0.14    -     
+Massara1_IRTA      0.85   0.74 0.14   0.16    0.74    0.74    0.73  
+MCHCB-0161         0.14   0.14 0.14   0.16    0.14    0.14    0.73  
+MESSAPIA_Icarda    0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+Messapia_Italia    0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+Normanno           0.33   0.14 0.14   0.14    0.73    0.58    0.14  
+OMBIT1             0.14   0.14 0.33   0.43    0.14    0.14    0.47  
+OMSNIMA-1          0.33   0.74 0.14   0.14    1.00    0.58    0.14  
+Outrob6            1.00   0.14 0.14   0.14    0.25    0.73    0.25  
+PIETRAFITTA        0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+PLATA_16           0.14   0.14 0.16   0.14    0.14    0.14    0.14  
+Quabrach-1         0.14   0.74 0.14   0.14    0.14    0.14    0.14  
+SENADUR            0.16   0.14 0.14   0.14    1.00    0.25    0.14  
+Serene2            0.14   0.14 0.14   0.14    0.14    0.14    0.85  
+Sohag4             0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+Stojocri3          0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+SVEVO              0.14   0.14 0.14   0.14    0.14    0.14    1.00  
+Tiziana            0.14   0.14 0.14   0.14    1.00    0.21    0.14  
+TUNSYR1_ICARDA     0.14   0.14 0.14   0.14    0.14    0.14    0.14  
+                   Massara1_IRTA MCHCB-0161 MESSAPIA_Icarda Messapia_Italia
+Altaiski_yanvar    -             -          -               -              
+ALTAR_84           -             -          -               -              
+Ammar-1            -             -          -               -              
+Ammar10            -             -          -               -              
+Atlast1_ICARDA2    -             -          -               -              
+Berillo            -             -          -               -              
+Bezater            -             -          -               -              
+BI Charito         -             -          -               -              
+Bicrederaa1        -             -          -               -              
+BOLENGA            -             -          -               -              
+Buck Cuarzo        -             -          -               -              
+Buck Perla         -             -          -               -              
+BUCK_A             -             -          -               -              
+CBW_08133          -             -          -               -              
+Chahra2            -             -          -               -              
+COLORADO           -             -          -               -              
+COLOSSEO           -             -          -               -              
+CRESO              -             -          -               -              
+Derazejihan        -             -          -               -              
+Don_Valentín       -             -          -               -              
+EL4X_59            -             -          -               -              
+EL4X_70            -             -          -               -              
+EL4X_72            -             -          -               -              
+ESDCB-2015/2016-52 -             -          -               -              
+FIGSDRYWET109      -             -          -               -              
+Furat-1            -             -          -               -              
+Icacube            -             -          -               -              
+Icarnada           -             -          -               -              
+Icavert            -             -          -               -              
+Icaverve           -             -          -               -              
+IDON37-071         -             -          -               -              
+IDSN46-7104        -             -          -               -              
+IDSN46-7132        -             -          -               -              
+IDSN46-7157        -             -          -               -              
+IDSN46-7166        -             -          -               -              
+IDSN46-7167        -             -          -               -              
+IDSN46-7216        -             -          -               -              
+JAWHAR             -             -          -               -              
+KOFA               -             -          -               -              
+KRONOS             -             -          -               -              
+Latinur            -             -          -               -              
+Lebrija            -             -          -               -              
+MARJANA            -             -          -               -              
+MARZAK             -             -          -               -              
+Massara1_IRTA      -             -          -               -              
+MCHCB-0161         0.58          -          -               -              
+MESSAPIA_Icarda    0.14          0.14       -               -              
+Messapia_Italia    0.14          0.14       1.00            -              
+Normanno           0.74          0.14       0.14            0.14           
+OMBIT1             0.47          0.58       0.14            0.14           
+OMSNIMA-1          0.58          0.14       0.14            0.14           
+Outrob6            1.00          0.14       0.14            0.14           
+PIETRAFITTA        0.14          0.14       0.47            0.47           
+PLATA_16           0.14          0.14       1.00            1.00           
+Quabrach-1         0.74          0.14       0.14            0.14           
+SENADUR            0.74          0.14       0.14            0.14           
+Serene2            0.74          0.85       0.14            0.14           
+Sohag4             0.73          0.14       0.14            0.14           
+Stojocri3          0.14          0.14       0.47            0.47           
+SVEVO              0.73          0.21       0.14            0.14           
+Tiziana            0.73          0.14       0.14            0.14           
+TUNSYR1_ICARDA     0.14          0.14       0.14            0.14           
+                   Normanno OMBIT1 OMSNIMA-1 Outrob6 PIETRAFITTA PLATA_16
+Altaiski_yanvar    -        -      -         -       -           -       
+ALTAR_84           -        -      -         -       -           -       
+Ammar-1            -        -      -         -       -           -       
+Ammar10            -        -      -         -       -           -       
+Atlast1_ICARDA2    -        -      -         -       -           -       
+Berillo            -        -      -         -       -           -       
+Bezater            -        -      -         -       -           -       
+BI Charito         -        -      -         -       -           -       
+Bicrederaa1        -        -      -         -       -           -       
+BOLENGA            -        -      -         -       -           -       
+Buck Cuarzo        -        -      -         -       -           -       
+Buck Perla         -        -      -         -       -           -       
+BUCK_A             -        -      -         -       -           -       
+CBW_08133          -        -      -         -       -           -       
+Chahra2            -        -      -         -       -           -       
+COLORADO           -        -      -         -       -           -       
+COLOSSEO           -        -      -         -       -           -       
+CRESO              -        -      -         -       -           -       
+Derazejihan        -        -      -         -       -           -       
+Don_Valentín       -        -      -         -       -           -       
+EL4X_59            -        -      -         -       -           -       
+EL4X_70            -        -      -         -       -           -       
+EL4X_72            -        -      -         -       -           -       
+ESDCB-2015/2016-52 -        -      -         -       -           -       
+FIGSDRYWET109      -        -      -         -       -           -       
+Furat-1            -        -      -         -       -           -       
+Icacube            -        -      -         -       -           -       
+Icarnada           -        -      -         -       -           -       
+Icavert            -        -      -         -       -           -       
+Icaverve           -        -      -         -       -           -       
+IDON37-071         -        -      -         -       -           -       
+IDSN46-7104        -        -      -         -       -           -       
+IDSN46-7132        -        -      -         -       -           -       
+IDSN46-7157        -        -      -         -       -           -       
+IDSN46-7166        -        -      -         -       -           -       
+IDSN46-7167        -        -      -         -       -           -       
+IDSN46-7216        -        -      -         -       -           -       
+JAWHAR             -        -      -         -       -           -       
+KOFA               -        -      -         -       -           -       
+KRONOS             -        -      -         -       -           -       
+Latinur            -        -      -         -       -           -       
+Lebrija            -        -      -         -       -           -       
+MARJANA            -        -      -         -       -           -       
+MARZAK             -        -      -         -       -           -       
+Massara1_IRTA      -        -      -         -       -           -       
+MCHCB-0161         -        -      -         -       -           -       
+MESSAPIA_Icarda    -        -      -         -       -           -       
+Messapia_Italia    -        -      -         -       -           -       
+Normanno           -        -      -         -       -           -       
+OMBIT1             0.14     -      -         -       -           -       
+OMSNIMA-1          1.00     0.14   -         -       -           -       
+Outrob6            0.47     0.14   0.47      -       -           -       
+PIETRAFITTA        0.14     0.14   0.14      0.14    -           -       
+PLATA_16           0.14     0.14   0.14      0.14    0.73        -       
+Quabrach-1         0.14     0.14   0.74      0.14    0.14        0.14    
+SENADUR            0.45     0.14   0.85      0.25    0.14        0.14    
+Serene2            0.14     0.33   0.14      0.14    0.14        0.14    
+Sohag4             0.14     0.14   0.73      0.14    0.14        0.14    
+Stojocri3          0.14     0.14   0.14      0.14    1.00        0.58    
+SVEVO              0.14     0.14   0.14      0.16    0.14        0.14    
+Tiziana            0.45     0.14   0.73      0.21    0.14        0.14    
+TUNSYR1_ICARDA     0.14     0.14   0.14      0.14    0.33        0.25    
+                   Quabrach-1 SENADUR Serene2 Sohag4 Stojocri3 SVEVO Tiziana
+Altaiski_yanvar    -          -       -       -      -         -     -      
+ALTAR_84           -          -       -       -      -         -     -      
+Ammar-1            -          -       -       -      -         -     -      
+Ammar10            -          -       -       -      -         -     -      
+Atlast1_ICARDA2    -          -       -       -      -         -     -      
+Berillo            -          -       -       -      -         -     -      
+Bezater            -          -       -       -      -         -     -      
+BI Charito         -          -       -       -      -         -     -      
+Bicrederaa1        -          -       -       -      -         -     -      
+BOLENGA            -          -       -       -      -         -     -      
+Buck Cuarzo        -          -       -       -      -         -     -      
+Buck Perla         -          -       -       -      -         -     -      
+BUCK_A             -          -       -       -      -         -     -      
+CBW_08133          -          -       -       -      -         -     -      
+Chahra2            -          -       -       -      -         -     -      
+COLORADO           -          -       -       -      -         -     -      
+COLOSSEO           -          -       -       -      -         -     -      
+CRESO              -          -       -       -      -         -     -      
+Derazejihan        -          -       -       -      -         -     -      
+Don_Valentín       -          -       -       -      -         -     -      
+EL4X_59            -          -       -       -      -         -     -      
+EL4X_70            -          -       -       -      -         -     -      
+EL4X_72            -          -       -       -      -         -     -      
+ESDCB-2015/2016-52 -          -       -       -      -         -     -      
+FIGSDRYWET109      -          -       -       -      -         -     -      
+Furat-1            -          -       -       -      -         -     -      
+Icacube            -          -       -       -      -         -     -      
+Icarnada           -          -       -       -      -         -     -      
+Icavert            -          -       -       -      -         -     -      
+Icaverve           -          -       -       -      -         -     -      
+IDON37-071         -          -       -       -      -         -     -      
+IDSN46-7104        -          -       -       -      -         -     -      
+IDSN46-7132        -          -       -       -      -         -     -      
+IDSN46-7157        -          -       -       -      -         -     -      
+IDSN46-7166        -          -       -       -      -         -     -      
+IDSN46-7167        -          -       -       -      -         -     -      
+IDSN46-7216        -          -       -       -      -         -     -      
+JAWHAR             -          -       -       -      -         -     -      
+KOFA               -          -       -       -      -         -     -      
+KRONOS             -          -       -       -      -         -     -      
+Latinur            -          -       -       -      -         -     -      
+Lebrija            -          -       -       -      -         -     -      
+MARJANA            -          -       -       -      -         -     -      
+MARZAK             -          -       -       -      -         -     -      
+Massara1_IRTA      -          -       -       -      -         -     -      
+MCHCB-0161         -          -       -       -      -         -     -      
+MESSAPIA_Icarda    -          -       -       -      -         -     -      
+Messapia_Italia    -          -       -       -      -         -     -      
+Normanno           -          -       -       -      -         -     -      
+OMBIT1             -          -       -       -      -         -     -      
+OMSNIMA-1          -          -       -       -      -         -     -      
+Outrob6            -          -       -       -      -         -     -      
+PIETRAFITTA        -          -       -       -      -         -     -      
+PLATA_16           -          -       -       -      -         -     -      
+Quabrach-1         -          -       -       -      -         -     -      
+SENADUR            0.14       -       -       -      -         -     -      
+Serene2            0.14       0.14    -       -      -         -     -      
+Sohag4             0.14       0.14    0.14    -      -         -     -      
+Stojocri3          0.14       0.14    0.14    0.14   -         -     -      
+SVEVO              0.14       0.14    0.21    0.14   0.14      -     -      
+Tiziana            0.14       1.00    0.14    0.14   0.14      0.14  -      
+TUNSYR1_ICARDA     0.14       0.14    0.14    0.14   0.33      0.14  0.14   
+
+P value adjustment method: BH </code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

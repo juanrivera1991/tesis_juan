@@ -8,6 +8,13 @@ format: html
 knitr::opts_chunk$set(echo = F, warning = FALSE, message = FALSE)
 ```
 
+
+```{r}
+library(ScottKnott)
+```
+
+
+
 Carga de paquetes
 
 ```{r}
@@ -20,9 +27,17 @@ conflicted::conflict_prefer("filter", "dplyr")
 Importar datos desde la carpeta de archivos cargados (armar un proyecto previo)
 
 ```{r}
-dat <- import("data/datos.xlsx") %>% clean_names() |> select(-contains("cv")) |> 
+dat <- import("data/datos.xlsx") %>% clean_names()  |> 
   mutate_at(vars(participante, bloque), as.factor) 
 ```
+
+```{r}
+str(dat)
+```
+```{r}
+#subset(dat, -c(e))  elimine la columna de codigo_gdp
+```
+
 
 ## Regresion lineal multiple 
 
@@ -35,7 +50,7 @@ summary(mod_rinde_step)
 ```
 
 ```{r}
-ri_rinde <- calc.relimp(mod_rinde_step, type="car", rela=TRUE)
+ri_rinde <- calc.relimp(mod_rinde_step, type="car", rela=FALSE)
 ri_rinde
 ```
 
@@ -51,27 +66,32 @@ performance::check_outliers(mod_part)
 ```
 > NO hay efecto del participante 
 
+```{r eval=FALSE}
+kg_means1 <- emmeans(mod_part, ~ participante, adjust = "tukey")
+kg_means_cld1 <- cld(kg_means1, Letters = letters, alpha = 0.1)
+kg_means_cld1
+```
+
 ### ph
 
 ```{r}
 mod_ph <- lm(ph ~ ., data= dat)
 mod_ph_step <- stepAIC(mod_ph,  direction="both", trace = FALSE)
 anova(mod_ph_step)
+```
 
+```{r}
 performance::check_normality(mod_ph_step)
 performance::check_heteroscedasticity(mod_ph_step)
 performance::check_outliers(mod_ph_step)
 ```
 
-```{r}
-ri_ph <- calc.relimp(mod_ph_step, type="car", rela=TRUE)
-ri_ph
-```
 
 Efecto del participante
 
 ```{r}
 mod_ph2 <- lm(ph ~ participante + bloque, data= dat)
+anova(mod_ph2)
 performance::check_normality(mod_ph2)
 performance::check_heteroscedasticity(mod_ph2)
 performance::check_outliers(mod_ph2)
@@ -123,5 +143,34 @@ res_ph
 ```
 
 ```{r}
-pairwise.wilcox.test(dat$ph, dat$participante, p.adjust.method = "BH")
+pairwise.wilcox.test(dat$ph, dat$participante, p.adjust.method = "BH") #La prueba de los rangos con signo de Wilcoxon es una prueba no paramétrica para comparar el rango medio de dos muestras relacionadas y determinar si existen diferencias entre ellas. Se utiliza como alternativa a la prueba t de Student cuando no se puede suponer la normalidad de dichas muestras.
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
