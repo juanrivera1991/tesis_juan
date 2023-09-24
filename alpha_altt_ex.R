@@ -1,8 +1,7 @@
 
-browseURL("https://www.youtube.com/watch?v=qqUV9b0XimY")
+# browseURL("https://www.youtube.com/watch?v=qqUV9b0XimY")
 
 library(agricolae)
-
 Genotype<-c(paste("gen0",1:9,sep=""),paste("gen",10:30,sep=""))
 ntr<-length(Genotype)
 r<-2
@@ -21,4 +20,7 @@ rm(Genotype)
 
 model <- with(dbook,PBIB.test(block, Genotype, replication, yield, k=3, method="VC"))
 model$ANOVA
-plot(model,las=2)
+agricolae::plot.group(model, las=2, horiz=TRUE, variation = "SE")
+
+pacman::p_load(FielDHub)
+FielDHub::run_app()
