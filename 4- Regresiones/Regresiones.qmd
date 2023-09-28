@@ -1,0 +1,1465 @@
+---
+title: "Regresiones"
+format: html
+---
+
+```{r}
+m_ls1<- lm(ph ~ proteina,data=dat)
+summary(m_ls1)
+ggplot(dat, aes(y= proteina ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  proteina ~ph" ) +labs (y = " proteina " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 1-proteina ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls1)
+ggsave(last_plot(),file="Check model/1-proteina ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls1)
+check_heteroscedasticity(m_ls1)
+check_predictions(m_ls1)
+ggsave(last_plot(),file="Predictive Check/1-proteina ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls2<- lm(ph ~ espigazon,data=dat)
+summary(m_ls2)
+ggplot(dat, aes(y= espigazon ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  espigazon ~ph" ) +labs (y = " espigazon " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 2-espigazon ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls2)
+ggsave(last_plot(),file="Check model/2-espigazon ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls2)
+check_heteroscedasticity(m_ls2)
+check_predictions(m_ls2)
+ggsave(last_plot(),file="Predictive Check/2-espigazon ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls3<- lm(ph ~ madurez,data=dat)
+summary(m_ls3)
+ggplot(dat, aes(y= madurez ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  madurez ~ph" ) +labs (y = " madurez " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 3-madurez ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls3)
+ggsave(last_plot(),file="Check model/3-madurez ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls3)
+check_heteroscedasticity(m_ls3)
+check_predictions(m_ls3)
+ggsave(last_plot(),file="Predictive Check/3-madurez ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls4<- lm(ph ~ altura,data=dat)
+summary(m_ls4)
+ggplot(dat, aes(y= altura ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  altura ~ph" ) +labs (y = " altura " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 4-altura ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls4)
+ggsave(last_plot(),file="Check model/4-altura ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls4)
+check_heteroscedasticity(m_ls4)
+check_predictions(m_ls4)
+ggsave(last_plot(),file="Predictive Check/4-altura ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls5<- lm(ph ~ kg_parcela,data=dat)
+summary(m_ls5)
+ggplot(dat, aes(y= kg_parcela ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  kg_parcela ~ph" ) +labs (y = " kg_parcela " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 5-kg_parcela ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls5)
+ggsave(last_plot(),file="Check model/5-kg_parcela ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls5)
+check_heteroscedasticity(m_ls5)
+check_predictions(m_ls5)
+ggsave(last_plot(),file="Predictive Check/5-kg_parcela ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls6<- lm(ph ~ pmg,data=dat)
+summary(m_ls6)
+ggplot(dat, aes(y= pmg ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~ph" ) +labs (y = " pmg " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 6-pmg ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls6)
+ggsave(last_plot(),file="Check model/6-pmg ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls6)
+check_heteroscedasticity(m_ls6)
+check_predictions(m_ls6)
+ggsave(last_plot(),file="Predictive Check/6-pmg ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls7<- lm(ph ~ ba,data=dat)
+summary(m_ls7)
+ggplot(dat, aes(y= ba ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~ph" ) +labs (y = " ba " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 7-ba ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls7)
+ggsave(last_plot(),file="Check model/7-ba ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls7)
+check_heteroscedasticity(m_ls7)
+check_predictions(m_ls7)
+ggsave(last_plot(),file="Predictive Check/7-ba ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls8<- lm(ph ~ ic,data=dat)
+summary(m_ls8)
+ggplot(dat, aes(y= ic ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~ph" ) +labs (y = " ic " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 8-ic ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls8)
+ggsave(last_plot(),file="Check model/8-ic ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls8)
+check_heteroscedasticity(m_ls8)
+check_predictions(m_ls8)
+ggsave(last_plot(),file="Predictive Check/8-ic ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls9<- lm(ph ~ esp_m2,data=dat)
+summary(m_ls9)
+ggplot(dat, aes(y= esp_m2 ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~ph" ) +labs (y = " esp_m2 " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 9-esp_m2 ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls9)
+ggsave(last_plot(),file="Check model/9-esp_m2 ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls9)
+check_heteroscedasticity(m_ls9)
+check_predictions(m_ls9)
+ggsave(last_plot(),file="Predictive Check/9-esp_m2 ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls10<- lm(ph ~ guillas_esp,data=dat)
+summary(m_ls10)
+ggplot(dat, aes(y= guillas_esp ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~ph" ) +labs (y = " guillas_esp " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 10-guillas_esp ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls10)
+ggsave(last_plot(),file="Check model/10-guillas_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls10)
+check_heteroscedasticity(m_ls10)
+check_predictions(m_ls10)
+ggsave(last_plot(),file="Predictive Check/10-guillas_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls11<- lm(ph ~ gran_esp,data=dat)
+summary(m_ls11)
+ggplot(dat, aes(y= gran_esp ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~ph" ) +labs (y = " gran_esp " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 11-gran_esp ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls11)
+ggsave(last_plot(),file="Check model/11-gran_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls11)
+check_heteroscedasticity(m_ls11)
+check_predictions(m_ls11)
+ggsave(last_plot(),file="Predictive Check/11-gran_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls12<- lm(ph ~ rinde_esp,data=dat)
+summary(m_ls12)
+ggplot(dat, aes(y= rinde_esp ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~ph" ) +labs (y = " rinde_esp " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 12-rinde_esp ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls12)
+ggsave(last_plot(),file="Check model/12-rinde_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls12)
+check_heteroscedasticity(m_ls12)
+check_predictions(m_ls12)
+ggsave(last_plot(),file="Predictive Check/12-rinde_esp ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls13<- lm(ph ~ g_m2,data=dat)
+summary(m_ls13)
+ggplot(dat, aes(y= g_m2 ,x=ph ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~ph" ) +labs (y = " g_m2 " ,x=" ph ")
+ggsave(last_plot(), file="Regresión/ 13-g_m2 ~ph.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls13)
+ggsave(last_plot(),file="Check model/13-g_m2 ~ph.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls13)
+check_heteroscedasticity(m_ls13)
+check_predictions(m_ls13)
+ggsave(last_plot(),file="Predictive Check/13-g_m2 ~ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls14<- lm(proteina ~ espigazon,data=dat)
+summary(m_ls14)
+ggplot(dat, aes(y= espigazon ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  espigazon ~proteina" ) +labs (y = " espigazon " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 14-espigazon ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls14)
+ggsave(last_plot(),file="Check model/14-espigazon ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls14)
+check_heteroscedasticity(m_ls14)
+check_predictions(m_ls14)
+ggsave(last_plot(),file="Predictive Check/14-espigazon ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls15<- lm(proteina ~ madurez,data=dat)
+summary(m_ls15)
+ggplot(dat, aes(y= madurez ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  madurez ~proteina" ) +labs (y = " madurez " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 15-madurez ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls15)
+ggsave(last_plot(),file="Check model/15-madurez ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls15)
+check_heteroscedasticity(m_ls15)
+check_predictions(m_ls15)
+ggsave(last_plot(),file="Predictive Check/15-madurez ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls16<- lm(proteina ~ altura,data=dat)
+summary(m_ls16)
+ggplot(dat, aes(y= altura ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  altura ~proteina" ) +labs (y = " altura " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 16-altura ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls16)
+ggsave(last_plot(),file="Check model/16-altura ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls16)
+check_heteroscedasticity(m_ls16)
+check_predictions(m_ls16)
+ggsave(last_plot(),file="Predictive Check/16-altura ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls17<- lm(proteina ~ kg_parcela,data=dat)
+summary(m_ls17)
+ggplot(dat, aes(y= kg_parcela ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  kg_parcela ~proteina" ) +labs (y = " kg_parcela " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 17-kg_parcela ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls17)
+ggsave(last_plot(),file="Check model/17-kg_parcela ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls17)
+check_heteroscedasticity(m_ls17)
+check_predictions(m_ls17)
+ggsave(last_plot(),file="Predictive Check/17-kg_parcela ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls18<- lm(proteina ~ pmg,data=dat)
+summary(m_ls18)
+ggplot(dat, aes(y= pmg ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~proteina" ) +labs (y = " pmg " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 18-pmg ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls18)
+ggsave(last_plot(),file="Check model/18-pmg ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls18)
+check_heteroscedasticity(m_ls18)
+check_predictions(m_ls18)
+ggsave(last_plot(),file="Predictive Check/18-pmg ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls19<- lm(proteina ~ ba,data=dat)
+summary(m_ls19)
+ggplot(dat, aes(y= ba ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~proteina" ) +labs (y = " ba " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 19-ba ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls19)
+ggsave(last_plot(),file="Check model/19-ba ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls19)
+check_heteroscedasticity(m_ls19)
+check_predictions(m_ls19)
+ggsave(last_plot(),file="Predictive Check/19-ba ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls20<- lm(proteina ~ ic,data=dat)
+summary(m_ls20)
+ggplot(dat, aes(y= ic ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~proteina" ) +labs (y = " ic " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 20-ic ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls20)
+ggsave(last_plot(),file="Check model/20-ic ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls20)
+check_heteroscedasticity(m_ls20)
+check_predictions(m_ls20)
+ggsave(last_plot(),file="Predictive Check/20-ic ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls21<- lm(proteina ~ esp_m2,data=dat)
+summary(m_ls21)
+ggplot(dat, aes(y= esp_m2 ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~proteina" ) +labs (y = " esp_m2 " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 21-esp_m2 ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls21)
+ggsave(last_plot(),file="Check model/21-esp_m2 ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls21)
+check_heteroscedasticity(m_ls21)
+check_predictions(m_ls21)
+ggsave(last_plot(),file="Predictive Check/21-esp_m2 ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls22<- lm(proteina ~ guillas_esp,data=dat)
+summary(m_ls22)
+ggplot(dat, aes(y= guillas_esp ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~proteina" ) +labs (y = " guillas_esp " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 22-guillas_esp ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls22)
+ggsave(last_plot(),file="Check model/22-guillas_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls22)
+check_heteroscedasticity(m_ls22)
+check_predictions(m_ls22)
+ggsave(last_plot(),file="Predictive Check/22-guillas_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls23<- lm(proteina ~ gran_esp,data=dat)
+summary(m_ls23)
+ggplot(dat, aes(y= gran_esp ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~proteina" ) +labs (y = " gran_esp " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 23-gran_esp ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls23)
+ggsave(last_plot(),file="Check model/23-gran_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls23)
+check_heteroscedasticity(m_ls23)
+check_predictions(m_ls23)
+ggsave(last_plot(),file="Predictive Check/23-gran_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls24<- lm(proteina ~ rinde_esp,data=dat)
+summary(m_ls24)
+ggplot(dat, aes(y= rinde_esp ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~proteina" ) +labs (y = " rinde_esp " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 24-rinde_esp ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls24)
+ggsave(last_plot(),file="Check model/24-rinde_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls24)
+check_heteroscedasticity(m_ls24)
+check_predictions(m_ls24)
+ggsave(last_plot(),file="Predictive Check/24-rinde_esp ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls25<- lm(proteina ~ g_m2,data=dat)
+summary(m_ls25)
+ggplot(dat, aes(y= g_m2 ,x=proteina ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~proteina" ) +labs (y = " g_m2 " ,x=" proteina ")
+ggsave(last_plot(), file="Regresión/ 25-g_m2 ~proteina.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls25)
+ggsave(last_plot(),file="Check model/25-g_m2 ~proteina.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls25)
+check_heteroscedasticity(m_ls25)
+check_predictions(m_ls25)
+ggsave(last_plot(),file="Predictive Check/25-g_m2 ~proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls26<- lm(espigazon ~ madurez,data=dat)
+summary(m_ls26)
+ggplot(dat, aes(y= madurez ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  madurez ~espigazon" ) +labs (y = " madurez " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 26-madurez ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls26)
+ggsave(last_plot(),file="Check model/26-madurez ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls26)
+check_heteroscedasticity(m_ls26)
+check_predictions(m_ls26)
+ggsave(last_plot(),file="Predictive Check/26-madurez ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls27<- lm(espigazon ~ altura,data=dat)
+summary(m_ls27)
+ggplot(dat, aes(y= altura ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  altura ~espigazon" ) +labs (y = " altura " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 27-altura ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls27)
+ggsave(last_plot(),file="Check model/27-altura ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls27)
+check_heteroscedasticity(m_ls27)
+check_predictions(m_ls27)
+ggsave(last_plot(),file="Predictive Check/27-altura ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls28<- lm(espigazon ~ kg_parcela,data=dat)
+summary(m_ls28)
+ggplot(dat, aes(y= kg_parcela ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  kg_parcela ~espigazon" ) +labs (y = " kg_parcela " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 28-kg_parcela ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls28)
+ggsave(last_plot(),file="Check model/28-kg_parcela ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls28)
+check_heteroscedasticity(m_ls28)
+check_predictions(m_ls28)
+ggsave(last_plot(),file="Predictive Check/28-kg_parcela ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls29<- lm(espigazon ~ pmg,data=dat)
+summary(m_ls29)
+ggplot(dat, aes(y= pmg ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~espigazon" ) +labs (y = " pmg " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 29-pmg ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls29)
+ggsave(last_plot(),file="Check model/29-pmg ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls29)
+check_heteroscedasticity(m_ls29)
+check_predictions(m_ls29)
+ggsave(last_plot(),file="Predictive Check/29-pmg ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls30<- lm(espigazon ~ ba,data=dat)
+summary(m_ls30)
+ggplot(dat, aes(y= ba ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~espigazon" ) +labs (y = " ba " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 30-ba ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls30)
+ggsave(last_plot(),file="Check model/30-ba ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls30)
+check_heteroscedasticity(m_ls30)
+check_predictions(m_ls30)
+ggsave(last_plot(),file="Predictive Check/30-ba ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls31<- lm(espigazon ~ ic,data=dat)
+summary(m_ls31)
+ggplot(dat, aes(y= ic ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~espigazon" ) +labs (y = " ic " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 31-ic ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls31)
+ggsave(last_plot(),file="Check model/31-ic ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls31)
+check_heteroscedasticity(m_ls31)
+check_predictions(m_ls31)
+ggsave(last_plot(),file="Predictive Check/31-ic ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls32<- lm(espigazon ~ esp_m2,data=dat)
+summary(m_ls32)
+ggplot(dat, aes(y= esp_m2 ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~espigazon" ) +labs (y = " esp_m2 " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 32-esp_m2 ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls32)
+ggsave(last_plot(),file="Check model/32-esp_m2 ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls32)
+check_heteroscedasticity(m_ls32)
+check_predictions(m_ls32)
+ggsave(last_plot(),file="Predictive Check/32-esp_m2 ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls33<- lm(espigazon ~ guillas_esp,data=dat)
+summary(m_ls33)
+ggplot(dat, aes(y= guillas_esp ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~espigazon" ) +labs (y = " guillas_esp " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 33-guillas_esp ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls33)
+ggsave(last_plot(),file="Check model/33-guillas_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls33)
+check_heteroscedasticity(m_ls33)
+check_predictions(m_ls33)
+ggsave(last_plot(),file="Predictive Check/33-guillas_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls34<- lm(espigazon ~ gran_esp,data=dat)
+summary(m_ls34)
+ggplot(dat, aes(y= gran_esp ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~espigazon" ) +labs (y = " gran_esp " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 34-gran_esp ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls34)
+ggsave(last_plot(),file="Check model/34-gran_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls34)
+check_heteroscedasticity(m_ls34)
+check_predictions(m_ls34)
+ggsave(last_plot(),file="Predictive Check/34-gran_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls35<- lm(espigazon ~ rinde_esp,data=dat)
+summary(m_ls35)
+ggplot(dat, aes(y= rinde_esp ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~espigazon" ) +labs (y = " rinde_esp " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 35-rinde_esp ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls35)
+ggsave(last_plot(),file="Check model/35-rinde_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls35)
+check_heteroscedasticity(m_ls35)
+check_predictions(m_ls35)
+ggsave(last_plot(),file="Predictive Check/35-rinde_esp ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls36<- lm(espigazon ~ g_m2,data=dat)
+summary(m_ls36)
+ggplot(dat, aes(y= g_m2 ,x=espigazon ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~espigazon" ) +labs (y = " g_m2 " ,x=" espigazon ")
+ggsave(last_plot(), file="Regresión/ 36-g_m2 ~espigazon.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls36)
+ggsave(last_plot(),file="Check model/36-g_m2 ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls36)
+check_heteroscedasticity(m_ls36)
+check_predictions(m_ls36)
+ggsave(last_plot(),file="Predictive Check/36-g_m2 ~espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls37<- lm(madurez ~ altura,data=dat)
+summary(m_ls37)
+ggplot(dat, aes(y= altura ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  altura ~madurez" ) +labs (y = " altura " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 37-altura ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls37)
+ggsave(last_plot(),file="Check model/37-altura ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls37)
+check_heteroscedasticity(m_ls37)
+check_predictions(m_ls37)
+ggsave(last_plot(),file="Predictive Check/37-altura ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls38<- lm(madurez ~ kg_parcela,data=dat)
+summary(m_ls38)
+ggplot(dat, aes(y= kg_parcela ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  kg_parcela ~madurez" ) +labs (y = " kg_parcela " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 38-kg_parcela ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls38)
+ggsave(last_plot(),file="Check model/38-kg_parcela ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls38)
+check_heteroscedasticity(m_ls38)
+check_predictions(m_ls38)
+ggsave(last_plot(),file="Predictive Check/38-kg_parcela ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls39<- lm(madurez ~ pmg,data=dat)
+summary(m_ls39)
+ggplot(dat, aes(y= pmg ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~madurez" ) +labs (y = " pmg " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 39-pmg ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls39)
+ggsave(last_plot(),file="Check model/39-pmg ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls39)
+check_heteroscedasticity(m_ls39)
+check_predictions(m_ls39)
+ggsave(last_plot(),file="Predictive Check/39-pmg ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls40<- lm(madurez ~ ba,data=dat)
+summary(m_ls40)
+ggplot(dat, aes(y= ba ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~madurez" ) +labs (y = " ba " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 40-ba ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls40)
+ggsave(last_plot(),file="Check model/40-ba ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls40)
+check_heteroscedasticity(m_ls40)
+check_predictions(m_ls40)
+ggsave(last_plot(),file="Predictive Check/40-ba ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls41<- lm(madurez ~ ic,data=dat)
+summary(m_ls41)
+ggplot(dat, aes(y= ic ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~madurez" ) +labs (y = " ic " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 41-ic ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls41)
+ggsave(last_plot(),file="Check model/41-ic ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls41)
+check_heteroscedasticity(m_ls41)
+check_predictions(m_ls41)
+ggsave(last_plot(),file="Predictive Check/41-ic ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls42<- lm(madurez ~ esp_m2,data=dat)
+summary(m_ls42)
+ggplot(dat, aes(y= esp_m2 ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~madurez" ) +labs (y = " esp_m2 " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 42-esp_m2 ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls42)
+ggsave(last_plot(),file="Check model/42-esp_m2 ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls42)
+check_heteroscedasticity(m_ls42)
+check_predictions(m_ls42)
+ggsave(last_plot(),file="Predictive Check/42-esp_m2 ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls43<- lm(madurez ~ guillas_esp,data=dat)
+summary(m_ls43)
+ggplot(dat, aes(y= guillas_esp ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~madurez" ) +labs (y = " guillas_esp " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 43-guillas_esp ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls43)
+ggsave(last_plot(),file="Check model/43-guillas_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls43)
+check_heteroscedasticity(m_ls43)
+check_predictions(m_ls43)
+ggsave(last_plot(),file="Predictive Check/43-guillas_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls44<- lm(madurez ~ gran_esp,data=dat)
+summary(m_ls44)
+ggplot(dat, aes(y= gran_esp ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~madurez" ) +labs (y = " gran_esp " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 44-gran_esp ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls44)
+ggsave(last_plot(),file="Check model/44-gran_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls44)
+check_heteroscedasticity(m_ls44)
+check_predictions(m_ls44)
+ggsave(last_plot(),file="Predictive Check/44-gran_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls45<- lm(madurez ~ rinde_esp,data=dat)
+summary(m_ls45)
+ggplot(dat, aes(y= rinde_esp ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~madurez" ) +labs (y = " rinde_esp " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 45-rinde_esp ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls45)
+ggsave(last_plot(),file="Check model/45-rinde_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls45)
+check_heteroscedasticity(m_ls45)
+check_predictions(m_ls45)
+ggsave(last_plot(),file="Predictive Check/45-rinde_esp ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls46<- lm(madurez ~ g_m2,data=dat)
+summary(m_ls46)
+ggplot(dat, aes(y= g_m2 ,x=madurez ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~madurez" ) +labs (y = " g_m2 " ,x=" madurez ")
+ggsave(last_plot(), file="Regresión/ 46-g_m2 ~madurez.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls46)
+ggsave(last_plot(),file="Check model/46-g_m2 ~madurez.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls46)
+check_heteroscedasticity(m_ls46)
+check_predictions(m_ls46)
+ggsave(last_plot(),file="Predictive Check/46-g_m2 ~madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls47<- lm(altura ~ kg_parcela,data=dat)
+summary(m_ls47)
+ggplot(dat, aes(y= kg_parcela ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  kg_parcela ~altura" ) +labs (y = " kg_parcela " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 47-kg_parcela ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls47)
+ggsave(last_plot(),file="Check model/47-kg_parcela ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls47)
+check_heteroscedasticity(m_ls47)
+check_predictions(m_ls47)
+ggsave(last_plot(),file="Predictive Check/47-kg_parcela ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls48<- lm(altura ~ pmg,data=dat)
+summary(m_ls48)
+ggplot(dat, aes(y= pmg ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~altura" ) +labs (y = " pmg " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 48-pmg ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls48)
+ggsave(last_plot(),file="Check model/48-pmg ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls48)
+check_heteroscedasticity(m_ls48)
+check_predictions(m_ls48)
+ggsave(last_plot(),file="Predictive Check/48-pmg ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls49<- lm(altura ~ ba,data=dat)
+summary(m_ls49)
+ggplot(dat, aes(y= ba ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~altura" ) +labs (y = " ba " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 49-ba ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls49)
+ggsave(last_plot(),file="Check model/49-ba ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls49)
+check_heteroscedasticity(m_ls49)
+check_predictions(m_ls49)
+ggsave(last_plot(),file="Predictive Check/49-ba ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls50<- lm(altura ~ ic,data=dat)
+summary(m_ls50)
+ggplot(dat, aes(y= ic ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~altura" ) +labs (y = " ic " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 50-ic ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls50)
+ggsave(last_plot(),file="Check model/50-ic ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls50)
+check_heteroscedasticity(m_ls50)
+check_predictions(m_ls50)
+ggsave(last_plot(),file="Predictive Check/50-ic ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls51<- lm(altura ~ esp_m2,data=dat)
+summary(m_ls51)
+ggplot(dat, aes(y= esp_m2 ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~altura" ) +labs (y = " esp_m2 " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 51-esp_m2 ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls51)
+ggsave(last_plot(),file="Check model/51-esp_m2 ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls51)
+check_heteroscedasticity(m_ls51)
+check_predictions(m_ls51)
+ggsave(last_plot(),file="Predictive Check/51-esp_m2 ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls52<- lm(altura ~ guillas_esp,data=dat)
+summary(m_ls52)
+ggplot(dat, aes(y= guillas_esp ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~altura" ) +labs (y = " guillas_esp " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 52-guillas_esp ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls52)
+ggsave(last_plot(),file="Check model/52-guillas_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls52)
+check_heteroscedasticity(m_ls52)
+check_predictions(m_ls52)
+ggsave(last_plot(),file="Predictive Check/52-guillas_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls53<- lm(altura ~ gran_esp,data=dat)
+summary(m_ls53)
+ggplot(dat, aes(y= gran_esp ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~altura" ) +labs (y = " gran_esp " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 53-gran_esp ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls53)
+ggsave(last_plot(),file="Check model/53-gran_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls53)
+check_heteroscedasticity(m_ls53)
+check_predictions(m_ls53)
+ggsave(last_plot(),file="Predictive Check/53-gran_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls54<- lm(altura ~ rinde_esp,data=dat)
+summary(m_ls54)
+ggplot(dat, aes(y= rinde_esp ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~altura" ) +labs (y = " rinde_esp " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 54-rinde_esp ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls54)
+ggsave(last_plot(),file="Check model/54-rinde_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls54)
+check_heteroscedasticity(m_ls54)
+check_predictions(m_ls54)
+ggsave(last_plot(),file="Predictive Check/54-rinde_esp ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls55<- lm(altura ~ g_m2,data=dat)
+summary(m_ls55)
+ggplot(dat, aes(y= g_m2 ,x=altura ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~altura" ) +labs (y = " g_m2 " ,x=" altura ")
+ggsave(last_plot(), file="Regresión/ 55-g_m2 ~altura.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls55)
+ggsave(last_plot(),file="Check model/55-g_m2 ~altura.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls55)
+check_heteroscedasticity(m_ls55)
+check_predictions(m_ls55)
+ggsave(last_plot(),file="Predictive Check/55-g_m2 ~altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls56<- lm(kg_parcela ~ pmg,data=dat)
+summary(m_ls56)
+ggplot(dat, aes(y= pmg ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  pmg ~kg_parcela" ) +labs (y = " pmg " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 56-pmg ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls56)
+ggsave(last_plot(),file="Check model/56-pmg ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls56)
+check_heteroscedasticity(m_ls56)
+check_predictions(m_ls56)
+ggsave(last_plot(),file="Predictive Check/56-pmg ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls57<- lm(kg_parcela ~ ba,data=dat)
+summary(m_ls57)
+ggplot(dat, aes(y= ba ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~kg_parcela" ) +labs (y = " ba " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 57-ba ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls57)
+ggsave(last_plot(),file="Check model/57-ba ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls57)
+check_heteroscedasticity(m_ls57)
+check_predictions(m_ls57)
+ggsave(last_plot(),file="Predictive Check/57-ba ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls58<- lm(kg_parcela ~ ic,data=dat)
+summary(m_ls58)
+ggplot(dat, aes(y= ic ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~kg_parcela" ) +labs (y = " ic " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 58-ic ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls58)
+ggsave(last_plot(),file="Check model/58-ic ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls58)
+check_heteroscedasticity(m_ls58)
+check_predictions(m_ls58)
+ggsave(last_plot(),file="Predictive Check/58-ic ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls59<- lm(kg_parcela ~ esp_m2,data=dat)
+summary(m_ls59)
+ggplot(dat, aes(y= esp_m2 ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~kg_parcela" ) +labs (y = " esp_m2 " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 59-esp_m2 ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls59)
+ggsave(last_plot(),file="Check model/59-esp_m2 ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls59)
+check_heteroscedasticity(m_ls59)
+check_predictions(m_ls59)
+ggsave(last_plot(),file="Predictive Check/59-esp_m2 ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls60<- lm(kg_parcela ~ guillas_esp,data=dat)
+summary(m_ls60)
+ggplot(dat, aes(y= guillas_esp ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~kg_parcela" ) +labs (y = " guillas_esp " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 60-guillas_esp ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls60)
+ggsave(last_plot(),file="Check model/60-guillas_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls60)
+check_heteroscedasticity(m_ls60)
+check_predictions(m_ls60)
+ggsave(last_plot(),file="Predictive Check/60-guillas_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls61<- lm(kg_parcela ~ gran_esp,data=dat)
+summary(m_ls61)
+ggplot(dat, aes(y= gran_esp ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~kg_parcela" ) +labs (y = " gran_esp " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 61-gran_esp ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls61)
+ggsave(last_plot(),file="Check model/61-gran_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls61)
+check_heteroscedasticity(m_ls61)
+check_predictions(m_ls61)
+ggsave(last_plot(),file="Predictive Check/61-gran_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls62<- lm(kg_parcela ~ rinde_esp,data=dat)
+summary(m_ls62)
+ggplot(dat, aes(y= rinde_esp ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~kg_parcela" ) +labs (y = " rinde_esp " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 62-rinde_esp ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls62)
+ggsave(last_plot(),file="Check model/62-rinde_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls62)
+check_heteroscedasticity(m_ls62)
+check_predictions(m_ls62)
+ggsave(last_plot(),file="Predictive Check/62-rinde_esp ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls63<- lm(kg_parcela ~ g_m2,data=dat)
+summary(m_ls63)
+ggplot(dat, aes(y= g_m2 ,x=kg_parcela ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~kg_parcela" ) +labs (y = " g_m2 " ,x=" kg_parcela ")
+ggsave(last_plot(), file="Regresión/ 63-g_m2 ~kg_parcela.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls63)
+ggsave(last_plot(),file="Check model/63-g_m2 ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls63)
+check_heteroscedasticity(m_ls63)
+check_predictions(m_ls63)
+ggsave(last_plot(),file="Predictive Check/63-g_m2 ~kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls64<- lm(pmg ~ ba,data=dat)
+summary(m_ls64)
+ggplot(dat, aes(y= ba ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ba ~pmg" ) +labs (y = " ba " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 64-ba ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls64)
+ggsave(last_plot(),file="Check model/64-ba ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls64)
+check_heteroscedasticity(m_ls64)
+check_predictions(m_ls64)
+ggsave(last_plot(),file="Predictive Check/64-ba ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls65<- lm(pmg ~ ic,data=dat)
+summary(m_ls65)
+ggplot(dat, aes(y= ic ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~pmg" ) +labs (y = " ic " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 65-ic ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls65)
+ggsave(last_plot(),file="Check model/65-ic ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls65)
+check_heteroscedasticity(m_ls65)
+check_predictions(m_ls65)
+ggsave(last_plot(),file="Predictive Check/65-ic ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls66<- lm(pmg ~ esp_m2,data=dat)
+summary(m_ls66)
+ggplot(dat, aes(y= esp_m2 ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~pmg" ) +labs (y = " esp_m2 " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 66-esp_m2 ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls66)
+ggsave(last_plot(),file="Check model/66-esp_m2 ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls66)
+check_heteroscedasticity(m_ls66)
+check_predictions(m_ls66)
+ggsave(last_plot(),file="Predictive Check/66-esp_m2 ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls67<- lm(pmg ~ guillas_esp,data=dat)
+summary(m_ls67)
+ggplot(dat, aes(y= guillas_esp ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~pmg" ) +labs (y = " guillas_esp " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 67-guillas_esp ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls67)
+ggsave(last_plot(),file="Check model/67-guillas_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls67)
+check_heteroscedasticity(m_ls67)
+check_predictions(m_ls67)
+ggsave(last_plot(),file="Predictive Check/67-guillas_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls68<- lm(pmg ~ gran_esp,data=dat)
+summary(m_ls68)
+ggplot(dat, aes(y= gran_esp ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~pmg" ) +labs (y = " gran_esp " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 68-gran_esp ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls68)
+ggsave(last_plot(),file="Check model/68-gran_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls68)
+check_heteroscedasticity(m_ls68)
+check_predictions(m_ls68)
+ggsave(last_plot(),file="Predictive Check/68-gran_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls69<- lm(pmg ~ rinde_esp,data=dat)
+summary(m_ls69)
+ggplot(dat, aes(y= rinde_esp ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~pmg" ) +labs (y = " rinde_esp " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 69-rinde_esp ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls69)
+ggsave(last_plot(),file="Check model/69-rinde_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls69)
+check_heteroscedasticity(m_ls69)
+check_predictions(m_ls69)
+ggsave(last_plot(),file="Predictive Check/69-rinde_esp ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls70<- lm(pmg ~ g_m2,data=dat)
+summary(m_ls70)
+ggplot(dat, aes(y= g_m2 ,x=pmg ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~pmg" ) +labs (y = " g_m2 " ,x=" pmg ")
+ggsave(last_plot(), file="Regresión/ 70-g_m2 ~pmg.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls70)
+ggsave(last_plot(),file="Check model/70-g_m2 ~pmg.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls70)
+check_heteroscedasticity(m_ls70)
+check_predictions(m_ls70)
+ggsave(last_plot(),file="Predictive Check/70-g_m2 ~pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls71<- lm(ba ~ ic,data=dat)
+summary(m_ls71)
+ggplot(dat, aes(y= ic ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  ic ~ba" ) +labs (y = " ic " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 71-ic ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls71)
+ggsave(last_plot(),file="Check model/71-ic ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls71)
+check_heteroscedasticity(m_ls71)
+check_predictions(m_ls71)
+ggsave(last_plot(),file="Predictive Check/71-ic ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls72<- lm(ba ~ esp_m2,data=dat)
+summary(m_ls72)
+ggplot(dat, aes(y= esp_m2 ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~ba" ) +labs (y = " esp_m2 " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 72-esp_m2 ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls72)
+ggsave(last_plot(),file="Check model/72-esp_m2 ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls72)
+check_heteroscedasticity(m_ls72)
+check_predictions(m_ls72)
+ggsave(last_plot(),file="Predictive Check/72-esp_m2 ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls73<- lm(ba ~ guillas_esp,data=dat)
+summary(m_ls73)
+ggplot(dat, aes(y= guillas_esp ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~ba" ) +labs (y = " guillas_esp " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 73-guillas_esp ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls73)
+ggsave(last_plot(),file="Check model/73-guillas_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls73)
+check_heteroscedasticity(m_ls73)
+check_predictions(m_ls73)
+ggsave(last_plot(),file="Predictive Check/73-guillas_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls74<- lm(ba ~ gran_esp,data=dat)
+summary(m_ls74)
+ggplot(dat, aes(y= gran_esp ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~ba" ) +labs (y = " gran_esp " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 74-gran_esp ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls74)
+ggsave(last_plot(),file="Check model/74-gran_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls74)
+check_heteroscedasticity(m_ls74)
+check_predictions(m_ls74)
+ggsave(last_plot(),file="Predictive Check/74-gran_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls75<- lm(ba ~ rinde_esp,data=dat)
+summary(m_ls75)
+ggplot(dat, aes(y= rinde_esp ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~ba" ) +labs (y = " rinde_esp " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 75-rinde_esp ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls75)
+ggsave(last_plot(),file="Check model/75-rinde_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls75)
+check_heteroscedasticity(m_ls75)
+check_predictions(m_ls75)
+ggsave(last_plot(),file="Predictive Check/75-rinde_esp ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls76<- lm(ba ~ g_m2,data=dat)
+summary(m_ls76)
+ggplot(dat, aes(y= g_m2 ,x=ba ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~ba" ) +labs (y = " g_m2 " ,x=" ba ")
+ggsave(last_plot(), file="Regresión/ 76-g_m2 ~ba.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls76)
+ggsave(last_plot(),file="Check model/76-g_m2 ~ba.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls76)
+check_heteroscedasticity(m_ls76)
+check_predictions(m_ls76)
+ggsave(last_plot(),file="Predictive Check/76-g_m2 ~ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls77<- lm(ic ~ esp_m2,data=dat)
+summary(m_ls77)
+ggplot(dat, aes(y= esp_m2 ,x=ic ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  esp_m2 ~ic" ) +labs (y = " esp_m2 " ,x=" ic ")
+ggsave(last_plot(), file="Regresión/ 77-esp_m2 ~ic.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls77)
+ggsave(last_plot(),file="Check model/77-esp_m2 ~ic.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls77)
+check_heteroscedasticity(m_ls77)
+check_predictions(m_ls77)
+ggsave(last_plot(),file="Predictive Check/77-esp_m2 ~ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls78<- lm(ic ~ guillas_esp,data=dat)
+summary(m_ls78)
+ggplot(dat, aes(y= guillas_esp ,x=ic ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~ic" ) +labs (y = " guillas_esp " ,x=" ic ")
+ggsave(last_plot(), file="Regresión/ 78-guillas_esp ~ic.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls78)
+ggsave(last_plot(),file="Check model/78-guillas_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls78)
+check_heteroscedasticity(m_ls78)
+check_predictions(m_ls78)
+ggsave(last_plot(),file="Predictive Check/78-guillas_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls79<- lm(ic ~ gran_esp,data=dat)
+summary(m_ls79)
+ggplot(dat, aes(y= gran_esp ,x=ic ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~ic" ) +labs (y = " gran_esp " ,x=" ic ")
+ggsave(last_plot(), file="Regresión/ 79-gran_esp ~ic.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls79)
+ggsave(last_plot(),file="Check model/79-gran_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls79)
+check_heteroscedasticity(m_ls79)
+check_predictions(m_ls79)
+ggsave(last_plot(),file="Predictive Check/79-gran_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls80<- lm(ic ~ rinde_esp,data=dat)
+summary(m_ls80)
+ggplot(dat, aes(y= rinde_esp ,x=ic ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~ic" ) +labs (y = " rinde_esp " ,x=" ic ")
+ggsave(last_plot(), file="Regresión/ 80-rinde_esp ~ic.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls80)
+ggsave(last_plot(),file="Check model/80-rinde_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls80)
+check_heteroscedasticity(m_ls80)
+check_predictions(m_ls80)
+ggsave(last_plot(),file="Predictive Check/80-rinde_esp ~ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls81<- lm(ic ~ g_m2,data=dat)
+summary(m_ls81)
+ggplot(dat, aes(y= g_m2 ,x=ic ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~ic" ) +labs (y = " g_m2 " ,x=" ic ")
+ggsave(last_plot(), file="Regresión/ 81-g_m2 ~ic.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls81)
+ggsave(last_plot(),file="Check model/81-g_m2 ~ic.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls81)
+check_heteroscedasticity(m_ls81)
+check_predictions(m_ls81)
+ggsave(last_plot(),file="Predictive Check/81-g_m2 ~ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls82<- lm(esp_m2 ~ guillas_esp,data=dat)
+summary(m_ls82)
+ggplot(dat, aes(y= guillas_esp ,x=esp_m2 ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  guillas_esp ~esp_m2" ) +labs (y = " guillas_esp " ,x=" esp_m2 ")
+ggsave(last_plot(), file="Regresión/ 82-guillas_esp ~esp_m2.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls82)
+ggsave(last_plot(),file="Check model/82-guillas_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls82)
+check_heteroscedasticity(m_ls82)
+check_predictions(m_ls82)
+ggsave(last_plot(),file="Predictive Check/82-guillas_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls83<- lm(esp_m2 ~ gran_esp,data=dat)
+summary(m_ls83)
+ggplot(dat, aes(y= gran_esp ,x=esp_m2 ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~esp_m2" ) +labs (y = " gran_esp " ,x=" esp_m2 ")
+ggsave(last_plot(), file="Regresión/ 83-gran_esp ~esp_m2.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls83)
+ggsave(last_plot(),file="Check model/83-gran_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls83)
+check_heteroscedasticity(m_ls83)
+check_predictions(m_ls83)
+ggsave(last_plot(),file="Predictive Check/83-gran_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls84<- lm(esp_m2 ~ rinde_esp,data=dat)
+summary(m_ls84)
+ggplot(dat, aes(y= rinde_esp ,x=esp_m2 ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~esp_m2" ) +labs (y = " rinde_esp " ,x=" esp_m2 ")
+ggsave(last_plot(), file="Regresión/ 84-rinde_esp ~esp_m2.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls84)
+ggsave(last_plot(),file="Check model/84-rinde_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls84)
+check_heteroscedasticity(m_ls84)
+check_predictions(m_ls84)
+ggsave(last_plot(),file="Predictive Check/84-rinde_esp ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls85<- lm(esp_m2 ~ g_m2,data=dat)
+summary(m_ls85)
+ggplot(dat, aes(y= g_m2 ,x=esp_m2 ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~esp_m2" ) +labs (y = " g_m2 " ,x=" esp_m2 ")
+ggsave(last_plot(), file="Regresión/ 85-g_m2 ~esp_m2.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls85)
+ggsave(last_plot(),file="Check model/85-g_m2 ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls85)
+check_heteroscedasticity(m_ls85)
+check_predictions(m_ls85)
+ggsave(last_plot(),file="Predictive Check/85-g_m2 ~esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls86<- lm(guillas_esp ~ gran_esp,data=dat)
+summary(m_ls86)
+ggplot(dat, aes(y= gran_esp ,x=guillas_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  gran_esp ~guillas_esp" ) +labs (y = " gran_esp " ,x=" guillas_esp ")
+ggsave(last_plot(), file="Regresión/ 86-gran_esp ~guillas_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls86)
+ggsave(last_plot(),file="Check model/86-gran_esp ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls86)
+check_heteroscedasticity(m_ls86)
+check_predictions(m_ls86)
+ggsave(last_plot(),file="Predictive Check/86-gran_esp ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls87<- lm(guillas_esp ~ rinde_esp,data=dat)
+summary(m_ls87)
+ggplot(dat, aes(y= rinde_esp ,x=guillas_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~guillas_esp" ) +labs (y = " rinde_esp " ,x=" guillas_esp ")
+ggsave(last_plot(), file="Regresión/ 87-rinde_esp ~guillas_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls87)
+ggsave(last_plot(),file="Check model/87-rinde_esp ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls87)
+check_heteroscedasticity(m_ls87)
+check_predictions(m_ls87)
+ggsave(last_plot(),file="Predictive Check/87-rinde_esp ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls88<- lm(guillas_esp ~ g_m2,data=dat)
+summary(m_ls88)
+ggplot(dat, aes(y= g_m2 ,x=guillas_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~guillas_esp" ) +labs (y = " g_m2 " ,x=" guillas_esp ")
+ggsave(last_plot(), file="Regresión/ 88-g_m2 ~guillas_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls88)
+ggsave(last_plot(),file="Check model/88-g_m2 ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls88)
+check_heteroscedasticity(m_ls88)
+check_predictions(m_ls88)
+ggsave(last_plot(),file="Predictive Check/88-g_m2 ~guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls89<- lm(gran_esp ~ rinde_esp,data=dat)
+summary(m_ls89)
+ggplot(dat, aes(y= rinde_esp ,x=gran_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  rinde_esp ~gran_esp" ) +labs (y = " rinde_esp " ,x=" gran_esp ")
+ggsave(last_plot(), file="Regresión/ 89-rinde_esp ~gran_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls89)
+ggsave(last_plot(),file="Check model/89-rinde_esp ~gran_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls89)
+check_heteroscedasticity(m_ls89)
+check_predictions(m_ls89)
+ggsave(last_plot(),file="Predictive Check/89-rinde_esp ~gran_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls90<- lm(gran_esp ~ g_m2,data=dat)
+summary(m_ls90)
+ggplot(dat, aes(y= g_m2 ,x=gran_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~gran_esp" ) +labs (y = " g_m2 " ,x=" gran_esp ")
+ggsave(last_plot(), file="Regresión/ 90-g_m2 ~gran_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls90)
+ggsave(last_plot(),file="Check model/90-g_m2 ~gran_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls90)
+check_heteroscedasticity(m_ls90)
+check_predictions(m_ls90)
+ggsave(last_plot(),file="Predictive Check/90-g_m2 ~gran_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+m_ls91<- lm(rinde_esp ~ g_m2,data=dat)
+summary(m_ls91)
+ggplot(dat, aes(y= g_m2 ,x=rinde_esp ))+geom_point() +geom_smooth(method = lm, col="green") +labs ( title ="Regresión lineal simple:  g_m2 ~rinde_esp" ) +labs (y = " g_m2 " ,x=" rinde_esp ")
+ggsave(last_plot(), file="Regresión/ 91-g_m2 ~rinde_esp.png", w=170, h=125, units= "mm", dpi=300)
+check_model(m_ls91)
+ggsave(last_plot(),file="Check model/91-g_m2 ~rinde_esp.png", w=300, h=250, units="mm", dpi=300)
+check_normality(m_ls91)
+check_heteroscedasticity(m_ls91)
+check_predictions(m_ls91)
+ggsave(last_plot(),file="Predictive Check/91-g_m2 ~rinde_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+summary(m_ls1)
+anova(m_ls1)
+
+summary(m_ls2)
+anova(m_ls2)
+
+summary(m_ls3)
+anova(m_ls3)
+
+summary(m_ls4)
+anova(m_ls4)
+
+summary(m_ls5)
+anova(m_ls5)
+
+summary(m_ls6)
+anova(m_ls6)
+
+summary(m_ls7)
+anova(m_ls7)
+
+summary(m_ls8)
+anova(m_ls8)
+
+summary(m_ls9)
+anova(m_ls9)
+
+summary(m_ls10)
+anova(m_ls10)
+
+summary(m_ls11)
+anova(m_ls11)
+
+summary(m_ls12)
+anova(m_ls12)
+
+summary(m_ls13)
+anova(m_ls13)
+
+summary(m_ls14)
+anova(m_ls14)
+
+summary(m_ls15)
+anova(m_ls15)
+
+summary(m_ls16)
+anova(m_ls16)
+
+summary(m_ls17)
+anova(m_ls17)
+
+summary(m_ls18)
+anova(m_ls18)
+
+summary(m_ls19)
+anova(m_ls19)
+
+summary(m_ls20)
+anova(m_ls20)
+
+summary(m_ls21)
+anova(m_ls21)
+
+summary(m_ls22)
+anova(m_ls22)
+
+summary(m_ls23)
+anova(m_ls23)
+
+summary(m_ls24)
+anova(m_ls24)
+
+summary(m_ls25)
+anova(m_ls25)
+
+summary(m_ls26)
+anova(m_ls26)
+
+summary(m_ls27)
+anova(m_ls27)
+
+summary(m_ls28)
+anova(m_ls28)
+
+summary(m_ls29)
+anova(m_ls29)
+
+summary(m_ls30)
+anova(m_ls30)
+
+summary(m_ls31)
+anova(m_ls31)
+
+summary(m_ls32)
+anova(m_ls32)
+
+summary(m_ls33)
+anova(m_ls33)
+
+summary(m_ls34)
+anova(m_ls34)
+
+summary(m_ls35)
+anova(m_ls35)
+
+summary(m_ls36)
+anova(m_ls36)
+
+summary(m_ls37)
+anova(m_ls37)
+
+summary(m_ls38)
+anova(m_ls38)
+
+summary(m_ls39)
+anova(m_ls39)
+
+summary(m_ls40)
+anova(m_ls40)
+
+summary(m_ls41)
+anova(m_ls41)
+
+summary(m_ls42)
+anova(m_ls42)
+
+summary(m_ls43)
+anova(m_ls43)
+
+summary(m_ls44)
+anova(m_ls44)
+
+summary(m_ls45)
+anova(m_ls45)
+
+summary(m_ls46)
+anova(m_ls46)
+
+summary(m_ls47)
+anova(m_ls47)
+
+summary(m_ls48)
+anova(m_ls48)
+
+summary(m_ls49)
+anova(m_ls49)
+
+summary(m_ls50)
+anova(m_ls50)
+
+summary(m_ls51)
+anova(m_ls51)
+
+summary(m_ls52)
+anova(m_ls52)
+
+summary(m_ls53)
+anova(m_ls53)
+
+summary(m_ls54)
+anova(m_ls54)
+
+summary(m_ls55)
+anova(m_ls55)
+
+summary(m_ls56)
+anova(m_ls56)
+
+summary(m_ls57)
+anova(m_ls57)
+
+summary(m_ls58)
+anova(m_ls58)
+
+summary(m_ls59)
+anova(m_ls59)
+
+summary(m_ls60)
+anova(m_ls60)
+
+summary(m_ls61)
+anova(m_ls61)
+
+summary(m_ls62)
+anova(m_ls62)
+
+summary(m_ls63)
+anova(m_ls63)
+
+summary(m_ls64)
+anova(m_ls64)
+
+summary(m_ls65)
+anova(m_ls65)
+
+summary(m_ls66)
+anova(m_ls66)
+
+summary(m_ls67)
+anova(m_ls67)
+
+summary(m_ls68)
+anova(m_ls68)
+
+summary(m_ls69)
+anova(m_ls69)
+
+summary(m_ls70)
+anova(m_ls70)
+
+summary(m_ls71)
+anova(m_ls71)
+
+summary(m_ls72)
+anova(m_ls72)
+
+summary(m_ls73)
+anova(m_ls73)
+
+summary(m_ls74)
+anova(m_ls74)
+
+summary(m_ls75)
+anova(m_ls75)
+
+summary(m_ls76)
+anova(m_ls76)
+
+summary(m_ls77)
+anova(m_ls77)
+
+summary(m_ls78)
+anova(m_ls78)
+
+summary(m_ls79)
+anova(m_ls79)
+
+summary(m_ls80)
+anova(m_ls80)
+
+summary(m_ls81)
+anova(m_ls81)
+
+summary(m_ls82)
+anova(m_ls82)
+
+summary(m_ls83)
+anova(m_ls83)
+
+summary(m_ls84)
+anova(m_ls84)
+
+summary(m_ls85)
+anova(m_ls85)
+
+summary(m_ls86)
+anova(m_ls86)
+
+summary(m_ls87)
+anova(m_ls87)
+
+summary(m_ls88)
+anova(m_ls88)
+
+summary(m_ls89)
+anova(m_ls89)
+
+summary(m_ls90)
+anova(m_ls90)
+
+summary(m_ls91)
+anova(m_ls91)
+
+```
+
+

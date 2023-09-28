@@ -1,0 +1,27 @@
+---
+title: "Correlación"
+format: html
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+dat %>%
+  select(ph,proteina,espigazon,madurez,altura,kg_parcela,pmg,ba,ic,esp_m2,guillas_esp,gran_esp,rinde_esp,g_m2) |>
+ggpairs()
+```
+
+```{r}
+ggsave(last_plot(),file="Gráficos de correlación/1- Matriz de correlación.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat %>%
+  select(ph,proteina,espigazon,madurez,altura,kg_parcela,pmg,ba,ic,esp_m2,guillas_esp,gran_esp,rinde_esp,g_m2)  %>% 
+  correlation::correlation()
+```
+
+

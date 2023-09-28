@@ -1,0 +1,103 @@
+---
+title: "Dendro"
+format: html
+---
+
+```{r}
+pacman::p_load(FactoMineR, factoextra)
+```
+
+```{r}
+dat
+```
+
+```{r}
+dat_sum_ph<- dat |>group_by(genotipo) |>select(ph) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_proteina<- dat |>group_by(genotipo) |>select(proteina) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_espigazon<- dat |>group_by(genotipo) |>select(espigazon) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_madurez<- dat |>group_by(genotipo) |>select(madurez) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_altura<- dat |>group_by(genotipo) |>select(altura) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_kg_parcela<- dat |>group_by(genotipo) |>select(kg_parcela) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_pmg<- dat |>group_by(genotipo) |>select(pmg) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_ba<- dat |>group_by(genotipo) |>select(ba) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_ic<- dat |>group_by(genotipo) |>select(ic) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_esp_m2<- dat |>group_by(genotipo) |>select(esp_m2) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_guillas_esp<- dat |>group_by(genotipo) |>select(guillas_esp) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_gran_esp<- dat |>group_by(genotipo) |>select(gran_esp) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/gran_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_rinde_esp<- dat |>group_by(genotipo) |>select(rinde_esp) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/rinde_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_g_m2<- dat |>group_by(genotipo) |>select(g_m2) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/g_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+dat_sum_g_m2<- dat |>group_by(genotipo) |>select(ph,	proteina,	espigazon,	madurez,	altura,	kg_parcela,	pmg,	ba,	ic,	esp_m2,	guillas_esp,	gran_esp,	rinde_esp,	g_m2
+) |>summarise_all(.funs="mean") |>column_to_rownames(var="genotipo")
+dat_sum %>% scale() %>% dist() %>% hclust(method = "ward.D2") %>% fviz_dend(cex = 1, k = 5, palette = "jco")
+ggsave(last_plot(), file="5- Dendrogramas fenotípicos individuales/TODAS LAS VARIABLES.png", w=300, h=250, units="mm", dpi=300)
+```

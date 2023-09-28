@@ -1,0 +1,259 @@
+---
+title: "Nomalidad"
+format: html
+---
+
+Test de normalidad para más de 50 datos --> lillie.test (Test de Kolmogorov S.)
+Si hay menos de 50, se usa Shapiro Wilt --> shapiro.test (Test de Shapiro)
+
+H0: La info tiene distribuión N
+H1: La info NO tiene distribución N
+
+p-valor < alpha --> Se rechaza H0
+
+
+
+```{r}
+library(tidyverse) #Contiene ggplot2
+library(gganimate) #Para gráficos
+library(nortest) #Para realizar el test de Kolmogorov (lilie.test)
+```
+
+
+```{r}
+jpeg("1-Histograma de la variable Peso hectolítrico .jpeg")
+hist(dat$ph, prob= TRUE, main = "Test de Normalidad para  PH", xlab="PH", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$ph), max(dat$ph), length=50)
+f<- dnorm (x, mean= mean (dat$ph),sd= sd(dat$ph))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$ph)
+
+jpeg("1-Gráfico QQ-Norm de la variable Peso hectolítrico .jpeg")
+qqnorm(dat$ph, col= "violet")
+qqline(dat$ph)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("2-Histograma de la variable % de proteína en grano (método NIR).jpeg")
+hist(dat$proteina, prob= TRUE, main = "Test de Normalidad para  PROTEINA", xlab="PROTEINA", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$proteina), max(dat$proteina), length=50)
+f<- dnorm (x, mean= mean (dat$proteina),sd= sd(dat$proteina))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$proteina)
+
+jpeg("2-Gráfico QQ-Norm de la variable % de proteína en grano (método NIR).jpeg")
+qqnorm(dat$proteina, col= "violet")
+qqline(dat$proteina)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("3-Histograma de la variable Fecha de espigazón (días).jpeg")
+hist(dat$espigazon, prob= TRUE, main = "Test de Normalidad para  ESPIGAZON", xlab="ESPIGAZON", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$espigazon), max(dat$espigazon), length=50)
+f<- dnorm (x, mean= mean (dat$espigazon),sd= sd(dat$espigazon))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$espigazon)
+
+jpeg("3-Gráfico QQ-Norm de la variable Fecha de espigazón (días).jpeg")
+qqnorm(dat$espigazon, col= "violet")
+qqline(dat$espigazon)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("4-Histograma de la variable Fecha de madurez (días).jpeg")
+hist(dat$madurez, prob= TRUE, main = "Test de Normalidad para  MADUREZ", xlab="MADUREZ", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$madurez), max(dat$madurez), length=50)
+f<- dnorm (x, mean= mean (dat$madurez),sd= sd(dat$madurez))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$madurez)
+
+jpeg("4-Gráfico QQ-Norm de la variable Fecha de madurez (días).jpeg")
+qqnorm(dat$madurez, col= "violet")
+qqline(dat$madurez)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("5-Histograma de la variable Altura (cm).jpeg")
+hist(dat$altura, prob= TRUE, main = "Test de Normalidad para  ALTURA", xlab="ALTURA", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$altura), max(dat$altura), length=50)
+f<- dnorm (x, mean= mean (dat$altura),sd= sd(dat$altura))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$altura)
+
+jpeg("5-Gráfico QQ-Norm de la variable Altura (cm).jpeg")
+qqnorm(dat$altura, col= "violet")
+qqline(dat$altura)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("6-Histograma de la variable Rendimiento x parcela (Kg).jpeg")
+hist(dat$kg_parcela, prob= TRUE, main = "Test de Normalidad para  KG_PARCELA", xlab="KG_PARCELA", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$kg_parcela), max(dat$kg_parcela), length=50)
+f<- dnorm (x, mean= mean (dat$kg_parcela),sd= sd(dat$kg_parcela))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$kg_parcela)
+
+jpeg("6-Gráfico QQ-Norm de la variable Rendimiento x parcela (Kg).jpeg")
+qqnorm(dat$kg_parcela, col= "violet")
+qqline(dat$kg_parcela)
+dev.off()
+```
+p-valor > alpha --> Hay distribución N
+
+```{r}
+jpeg("7-Histograma de la variable Peso de mil granos (g).jpeg")
+hist(dat$pmg, prob= TRUE, main = "Test de Normalidad para  PMG", xlab="PMG", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$pmg), max(dat$pmg), length=50)
+f<- dnorm (x, mean= mean (dat$pmg),sd= sd(dat$pmg))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$pmg)
+
+jpeg("7-Gráfico QQ-Norm de la variable Peso de mil granos (g).jpeg")
+qqnorm(dat$pmg, col= "violet")
+qqline(dat$pmg)
+dev.off()
+```
+p-valor > alpha --> Hay distribución N
+
+```{r}
+jpeg("8-Histograma de la variable Biomasa aérea (g).jpeg")
+hist(dat$ba, prob= TRUE, main = "Test de Normalidad para  BA", xlab="BA", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$ba), max(dat$ba), length=50)
+f<- dnorm (x, mean= mean (dat$ba),sd= sd(dat$ba))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$ba)
+
+jpeg("8-Gráfico QQ-Norm de la variable Biomasa aérea (g).jpeg")
+qqnorm(dat$ba, col= "violet")
+qqline(dat$ba)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("9-Histograma de la variable Indice de cosecha.jpeg")
+hist(dat$ic, prob= TRUE, main = "Test de Normalidad para  IC", xlab="IC", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$ic), max(dat$ic), length=50)
+f<- dnorm (x, mean= mean (dat$ic),sd= sd(dat$ic))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$ic)
+
+jpeg("9-Gráfico QQ-Norm de la variable Indice de cosecha.jpeg")
+qqnorm(dat$ic, col= "violet")
+qqline(dat$ic)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("10-Histograma de la variable Espigas x m2.jpeg")
+hist(dat$esp_m2, prob= TRUE, main = "Test de Normalidad para  ESP_M2", xlab="ESP_M2", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$esp_m2), max(dat$esp_m2), length=50)
+f<- dnorm (x, mean= mean (dat$esp_m2),sd= sd(dat$esp_m2))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$esp_m2)
+
+jpeg("10-Gráfico QQ-Norm de la variable Espigas x m2.jpeg")
+qqnorm(dat$esp_m2, col= "violet")
+qqline(dat$esp_m2)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("11-Histograma de la variable Espiguillas x espiga.jpeg")
+hist(dat$guillas_esp, prob= TRUE, main = "Test de Normalidad para  GUILLAS_ESP", xlab="GUILLAS_ESP", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$guillas_esp), max(dat$guillas_esp), length=50)
+f<- dnorm (x, mean= mean (dat$guillas_esp),sd= sd(dat$guillas_esp))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$guillas_esp)
+
+jpeg("11-Gráfico QQ-Norm de la variable Espiguillas x espiga.jpeg")
+qqnorm(dat$guillas_esp, col= "violet")
+qqline(dat$guillas_esp)
+dev.off()
+```
+p-valor > alpha --> Hay distribución N
+
+```{r}
+jpeg("12-Histograma de la variable granos x espiga.jpeg")
+hist(dat$gran_esp, prob= TRUE, main = "Test de Normalidad para  GRAN_ESP", xlab="GRAN_ESP", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$gran_esp), max(dat$gran_esp), length=50)
+f<- dnorm (x, mean= mean (dat$gran_esp),sd= sd(dat$gran_esp))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$gran_esp)
+
+jpeg("12-Gráfico QQ-Norm de la variable granos x espiga.jpeg")
+qqnorm(dat$gran_esp, col= "violet")
+qqline(dat$gran_esp)
+dev.off()
+```
+p-valor > alpha
+
+```{r}
+jpeg("13-Histograma de la variable Rendimiento x espiga (g).jpeg")
+hist(dat$rinde_esp, prob= TRUE, main = "Test de Normalidad para  RINDE_ESP", xlab="RINDE_ESP", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$rinde_esp), max(dat$rinde_esp), length=50)
+f<- dnorm (x, mean= mean (dat$rinde_esp),sd= sd(dat$rinde_esp))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$rinde_esp)
+
+jpeg("13-Gráfico QQ-Norm de la variable Rendimiento x espiga (g).jpeg")
+qqnorm(dat$rinde_esp, col= "violet")
+qqline(dat$rinde_esp)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N
+
+```{r}
+jpeg("14-Histograma de la variable Granos x m2.jpeg")
+hist(dat$g_m2, prob= TRUE, main = "Test de Normalidad para  G_M2", xlab="G_M2", ylab="Frecuencia", col= "violet")
+x<- seq(min(dat$g_m2), max(dat$g_m2), length=50)
+f<- dnorm (x, mean= mean (dat$g_m2),sd= sd(dat$g_m2))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(dat$g_m2)
+
+jpeg("14-Gráfico QQ-Norm de la variable Granos x m2.jpeg")
+qqnorm(dat$g_m2, col= "violet")
+qqline(dat$g_m2)
+dev.off()
+```
+p-valor < alpha --> No hay distribución N

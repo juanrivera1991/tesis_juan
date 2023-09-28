@@ -1,0 +1,60 @@
+---
+title: "Análisis_exploratorios"
+format: html
+---
+
+```{r}
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable,
+MASS, relaimpo, emmeans, multcomp)
+conflicted::conflict_prefer("select", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")
+```
+```{r}
+glimpse(dat)
+```
+
+```{r}
+summary (dat)
+```
+
+```{r}
+dat %>% group_by(genotipo) %>% summarise(mean(ph),mean(proteina),mean(espigazon),mean(madurez),mean(altura),mean(kg_parcela),mean(pmg),mean(ba),mean(ic),mean(esp_m2),mean(guillas_esp),mean(gran_esp),mean(rinde_esp),mean(g_m2))
+```
+```{r}
+dat %>% group_by(genotipo) %>% summarise(sd(ph),sd(proteina),sd(espigazon),sd(madurez),sd(altura),sd(kg_parcela),sd(pmg),sd(ba),sd(ic),sd(esp_m2),sd(guillas_esp),sd(gran_esp),sd(rinde_esp),sd(g_m2))
+```
+
+```{r}
+dat %>% group_by(genotipo) %>% summarise (sd(ph)/mean(ph),	sd(proteina)/mean(proteina),	sd(espigazon)/mean(espigazon),	sd(madurez)/mean(madurez),	sd(altura)/mean(altura),	sd(kg_parcela)/mean(kg_parcela),	sd(pmg)/mean(pmg),	sd(ba)/mean(ba),	sd(ic)/mean(ic),	sd(esp_m2)/mean(esp_m2),	sd(guillas_esp)/mean(guillas_esp),	sd(gran_esp)/mean(gran_esp),	sd(rinde_esp)/mean(rinde_esp),	sd(g_m2)/mean(g_m2))
+```
+
+--------------------------------------Observaciones-----------------------------------------
+
+ph:	Peso hectolítrico 
+proteina:	% de proteína en grano (método NIR)
+espigazon: Fecha de espigazón (días)
+madurez:	Fecha de madurez (días)
+altura:	Altura (cm)
+kg_parcela:	Rendimiento/parcela (Kg)
+pmg:	Peso de mil granos (g)
+ba:	Biomasa aérea (g)
+ic:	Indice de cosecha (%)
+esp_m2:	Espigas/m2
+guillas_esp:	Espiguillas/espiga
+gran_esp:	granos/espiga
+rinde_esp:	Rendimiento/espiga (g)
+g_m2:	Granos/m2
+
+--------------------------------------Observaciones-----------------------------------------
+
+```{r}
+dat %>%
+  select(ph,proteina,espigazon,
+         madurez,altura,kg_parcela,
+         pmg,ba,ic,esp_m2,guillas_esp,
+         gran_esp,rinde_esp,g_m2) |>
+
+skim()
+```
+
+

@@ -1,8 +1,6 @@
 ---
-title: "datos"
+title: "tukey"
 format: html
-editor_options: 
-  chunk_output_type: inline
 ---
 
 
@@ -67,7 +65,7 @@ mod_ph<- with(dat,PBIB.test(bloque,genotipo,replica,ph, k=9, method="REML"))
 mod_ph$ANOVA
 mod_ph$means
 mod_ph$groups
-png(file="plots/saving_plot_ph.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_ph.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_ph, horiz=TRUE, xlim = c(60,80),  las=2, variation = "IQR", hy=-2, xlab="Peso hectolítrico", main="")
 dev.off()
@@ -78,7 +76,7 @@ mod_proteina<- with(dat,PBIB.test(bloque,genotipo,replica,proteina, k=9, method=
 mod_proteina$ANOVA
 mod_proteina$means
 mod_proteina$groups
-png(file="plots/saving_plot_proteina.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_proteina.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_proteina, horiz=TRUE, xlim = c(14,18),  las=2, variation = "IQR", hy=-2, xlab="Proteína (%)", main="")
 dev.off()
@@ -89,20 +87,20 @@ mod_espigazon<- with(dat,PBIB.test(bloque,genotipo,replica,espigazon, k=9, metho
 mod_espigazon$ANOVA
 mod_espigazon$means
 mod_espigazon$groups
-png(file="plots/saving_plot_espigazon.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_espigazon.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_espigazon, horiz=TRUE, xlim = c(80,95),  las=2, variation = "IQR", hy=-2, xlab="Espigazón (días)", main="")
 dev.off()
 ```
 
 ```{r}
-mod_marurez<- with(dat,PBIB.test(bloque,genotipo,replica,marurez, k=9, method="REML"))
-mod_marurez$ANOVA
-mod_marurez$means
-mod_marurez$groups
-png(file="plots/saving_plot_marurez.png",width= 700, height=1200)
+mod_madurez<- with(dat,PBIB.test(bloque,genotipo,replica,madurez, k=9, method="REML"))
+mod_madurez$ANOVA
+mod_madurez$means
+mod_madurez$groups
+png(file="6- Alpha latice/saving_plot_madurez.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
-plot.group(mod_marurez, horiz=TRUE, xlim = c(120,135),  las=2, variation = "IQR", hy=-2, xlab="Madurez (días)", main="")
+plot.group(mod_madurez, horiz=TRUE, xlim = c(120,135),  las=2, variation = "IQR", hy=-2, xlab="Madurez (días)", main="")
 dev.off()
 ```
 
@@ -111,7 +109,7 @@ mod_altura<- with(dat,PBIB.test(bloque,genotipo,replica,altura, k=9, method="REM
 mod_altura$ANOVA
 mod_altura$means
 mod_altura$groups
-png(file="plots/saving_plot_altura.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_altura.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_altura, horiz=TRUE, xlim = c(38,86),  las=2, variation = "IQR", hy=-2, xlab="Altura (cm)", main="")
 dev.off()
@@ -122,7 +120,7 @@ mod_kg_parcela<- with(dat,PBIB.test(bloque,genotipo,replica,kg_parcela, k=9, met
 mod_kg_parcela$ANOVA
 mod_kg_parcela$means
 mod_kg_parcela$groups
-png(file="plots/saving_plot_kg_parcela.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_kg_parcela.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_kg_parcela, horiz=TRUE, xlim = c(0,2),  las=2, variation = "IQR", hy=-2, xlab="Rendimiento/parcela (kg)", main="")
 dev.off()
@@ -133,7 +131,7 @@ mod_pmg<- with(dat,PBIB.test(bloque,genotipo,replica,pmg, k=9, method="REML"))
 mod_pmg$ANOVA
 mod_pmg$means
 mod_pmg$groups
-png(file="plots/saving_plot_pmg.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_pmg.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_pmg, horiz=TRUE, xlim = c(20,48),  las=2, variation = "IQR", hy=-2, xlab="Peso de mil granos (g)", main="")
 dev.off()
@@ -144,9 +142,9 @@ mod_ba<- with(dat,PBIB.test(bloque,genotipo,replica,ba, k=9, method="REML"))
 mod_ba$ANOVA
 mod_ba$means
 mod_ba$groups
-png(file="plots/saving_plot_ba.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_ba.png",width= 900, height=1200)
 par(mar = c(5, 10, 1, 1))
-plot.group(mod_proteina, horiz=TRUE, xlim = c(55,220),  las=2, variation = "IQR", hy=-2, xlab="Biomasa aérea (g)", main="")
+plot.group(mod_ba, horiz=TRUE, xlim = c(60,130),  las=2, variation = "IQR", hy=-2, xlab="Biomasa aérea (g)", main="")
 dev.off()
 ```
 
@@ -155,9 +153,9 @@ mod_ic<- with(dat,PBIB.test(bloque,genotipo,replica,ic, k=9, method="REML"))
 mod_ic$ANOVA
 mod_ic$means
 mod_ic$groups
-png(file="plots/saving_plot_ic.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_ic.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
-plot.group(mod_proteina, horiz=TRUE, xlim = c(6,35),  las=2, variation = "IQR", hy=-2, xlab="Indice de cosecha", main="")
+plot.group(mod_ic, horiz=TRUE, xlim = c(12,17),  las=2, variation = "IQR", hy=-2, xlab="Indice de cosecha", main="")
 dev.off()
 ```
 
@@ -166,7 +164,7 @@ mod_esp_m2<- with(dat,PBIB.test(bloque,genotipo,replica,esp_m2, k=9, method="REM
 mod_esp_m2$ANOVA
 mod_esp_m2$means
 mod_esp_m2$groups
-png(file="plots/saving_plot_esp_m2.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_esp_m2.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_esp_m2, horiz=TRUE, xlim = c(25,172),  las=2, variation = "IQR", hy=-2, xlab="Espigas/metro2", main="")
 dev.off()
@@ -177,9 +175,9 @@ mod_guillas_esp<- with(dat,PBIB.test(bloque,genotipo,replica,guillas_esp, k=9, m
 mod_guillas_esp$ANOVA
 mod_guillas_esp$means
 mod_guillas_esp$groups
-png(file="plots/saving_plot_guillas_esp.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_guillas_esp.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
-plot.group(mod_proteina, horiz=TRUE, xlim = c(11,22),  las=2, variation = "IQR", hy=-2, xlab="Espiguillas/espiga", main="")
+plot.group(mod_guillas_esp, horiz=TRUE, xlim = c(11,22),  las=2, variation = "IQR", hy=-2, xlab="Espiguillas/espiga", main="")
 dev.off()
 ```
 
@@ -188,9 +186,9 @@ mod_gran_esp<- with(dat,PBIB.test(bloque,genotipo,replica,gran_esp, k=9, method=
 mod_gran_esp$ANOVA
 mod_gran_esp$means
 mod_gran_esp$groups
-png(file="plots/saving_plot_gran_esp.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_gran_esp.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
-plot.group(mod_proteina, horiz=TRUE, xlim = c(11,45),  las=2, variation = "IQR", hy=-2, xlab="Granos/espiga", main="")
+plot.group(mod_gran_esp, horiz=TRUE, xlim = c(11,45),  las=2, variation = "IQR", hy=-2, xlab="Granos/espiga", main="")
 dev.off()
 ```
 
@@ -199,7 +197,7 @@ mod_rinde_esp<- with(dat,PBIB.test(bloque,genotipo,replica,rinde_esp, k=9, metho
 mod_rinde_esp$ANOVA
 mod_rinde_esp$means
 mod_rinde_esp$groups
-png(file="plots/saving_plot_rinde_esp.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_rinde_esp.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_rinde_esp, horiz=TRUE, xlim = c(0,2),  las=2, variation = "IQR", hy=-2, xlab="Rendimiento/espiga (g)", main="")
 dev.off()
@@ -210,7 +208,7 @@ mod_g_m2<- with(dat,PBIB.test(bloque,genotipo,replica,g_m2, k=9, method="REML"))
 mod_g_m2$ANOVA
 mod_g_m2$means
 mod_g_m2$groups
-png(file="plots/saving_plot_g_m2.png",width= 700, height=1200)
+png(file="6- Alpha latice/saving_plot_g_m2.png",width= 700, height=1200)
 par(mar = c(5, 10, 1, 1))
 plot.group(mod_g_m2, horiz=TRUE, xlim = c(3000,26000),  las=2, variation = "IQR", hy=-2, xlab="Granos/m2", main="")
 dev.off()
@@ -219,7 +217,7 @@ dev.off()
 ```{r}
 mod_ph$ANOVA
 mod_proteina$ANOVA
-mod_espigazón$ANOVA
+mod_espigazon$ANOVA
 mod_madurez$ANOVA
 mod_altura$ANOVA
 mod_kg_parcela$ANOVA
@@ -234,9 +232,4 @@ mod_g_m2$ANOVA
 ```
 
 -----------------------------------FIN--------------------------------------
-
-
-
-
-
 
