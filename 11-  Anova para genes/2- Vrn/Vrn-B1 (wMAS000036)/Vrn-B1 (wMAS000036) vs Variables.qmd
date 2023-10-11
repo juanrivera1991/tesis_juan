@@ -1,0 +1,517 @@
+---
+title: "Untitled"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(skimr)
+library(performance)
+library(emmeans)
+library(multcomp)
+library(readxl)
+```
+
+# PH
+
+```{r}
+m_ls1<- lm(ph~vb1, data=fp1)
+summary (m_ls1)
+anova (m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ vb1, type="response")
+res1<-cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+res1%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= ph))+
+labs(x="Vrn-B1 (wMAS000036)", y="ph")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1- Vrn-B1 (wMAS000036)- Tukey-ph.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-ph.png",width=1000,height=900)
+boxplot(data= fp1,ph~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "ph",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# PROTEINA
+
+```{r}
+m_ls2<- lm(proteina~vb1, data=fp1)
+summary (m_ls2)
+anova (m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ vb1, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+res2%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= proteina))+
+labs(x="Vrn-B1 (wMAS000036)", y="proteina")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/2- Vrn-B1 (wMAS000036)- Tukey-proteina.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-proteina.png",width=1000,height=900)
+boxplot(data= fp1,proteina~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "proteina",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# ESPIGAZON
+
+```{r}
+m_ls3<- lm(espigazon~vb1, data=fp1)
+summary (m_ls3)
+anova (m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ vb1, type="response")
+res3<-cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+res3%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= espigazon))+
+labs(x="Vrn-B1 (wMAS000036)", y="espigazon")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/2- Vrn/Vrn-B1 (wMAS000036)- Tukey-espigazon.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-espigazon.png",width=1000,height=900)
+boxplot(data= fp1,espigazon~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "espigazon",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# MADUREZ
+
+```{r}
+m_ls4<- lm(madurez~vb1, data=fp1)
+summary (m_ls4)
+anova (m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ vb1, type="response")
+res4<-cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+res4%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= madurez))+
+labs(x="Vrn-B1 (wMAS000036)", y="madurez")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=madurez))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/2- Vrn/Vrn-B1 (wMAS000036)- Tukey-madurez.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-madurez.png",width=1000,height=900)
+boxplot(data= fp1,madurez~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "madurez",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# ALTURA
+
+```{r}
+m_ls5<- lm(altura~vb1, data=fp1)
+summary (m_ls5)
+anova (m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ vb1, type="response")
+res5<-cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+res5%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= altura))+
+labs(x="Vrn-B1 (wMAS000036)", y="altura")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/5- Vrn-B1 (wMAS000036)- Tukey-altura.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-altura.png",width=1000,height=900)
+boxplot(data= fp1,altura~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "altura",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# KG_PARCELA
+
+```{r}
+m_ls6<- lm(kg_parcela~vb1, data=fp1)
+summary (m_ls6)
+anova (m_ls6)
+library(emmeans)
+mm6<- emmeans(m_ls6, ~ vb1, type="response")
+res6<-cld(mm6, Letters=letters, reverse=TRUE, alpha=.05)
+res6
+```
+
+```{r}
+res6%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= kg_parcela))+
+labs(x="Vrn-B1 (wMAS000036)", y="kg_parcela")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/6- Vrn-B1 (wMAS000036)- Tukey-kg_parcela.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-kg_parcela.png",width=1000,height=900)
+boxplot(data= fp1,kg_parcela~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "kg_parcela",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# PMG
+
+```{r}
+m_ls7<- lm(pmg~vb1, data=fp1)
+summary (m_ls7)
+anova (m_ls7)
+library(emmeans)
+mm7<- emmeans(m_ls7, ~ vb1, type="response")
+res7<-cld(mm7, Letters=letters, reverse=TRUE, alpha=.05)
+res7
+```
+
+```{r}
+res7%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= pmg))+
+labs(x="Vrn-B1 (wMAS000036)", y="pmg")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=pmg))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/7- Vrn-B1 (wMAS000036)- Tukey-pmg.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-pmg.png",width=1000,height=900)
+boxplot(data= fp1,pmg~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "pmg",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# BA
+
+```{r}
+m_ls8<- lm(ba~vb1, data=fp1)
+summary (m_ls8)
+anova (m_ls8)
+library(emmeans)
+mm8<- emmeans(m_ls8, ~ vb1, type="response")
+res8<-cld(mm8, Letters=letters, reverse=TRUE, alpha=.05)
+res8
+```
+
+```{r}
+res8%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= ba))+
+labs(x="Vrn-B1 (wMAS000036)", y="ba")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=ba))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/8- Vrn-B1 (wMAS000036)- Tukey-ba.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-ba.png",width=1000,height=900)
+boxplot(data= fp1,ba~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "ba",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# IC
+
+```{r}
+m_ls9<- lm(ic~vb1, data=fp1)
+summary (m_ls9)
+anova (m_ls9)
+library(emmeans)
+mm9<- emmeans(m_ls9, ~ vb1, type="response")
+res9<-cld(mm9, Letters=letters, reverse=TRUE, alpha=.05)
+res9
+```
+
+```{r}
+res9%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= ic))+
+labs(x="Vrn-B1 (wMAS000036)", y="ic")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=ic))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/9- Vrn-B1 (wMAS000036)- Tukey-ic.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-ic.png",width=1000,height=900)
+boxplot(data= fp1,ic~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "ic",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# ESP_M2
+
+```{r}
+m_ls10<- lm(esp_m2~vb1, data=fp1)
+summary (m_ls10)
+anova (m_ls10)
+library(emmeans)
+mm10<- emmeans(m_ls10, ~ vb1, type="response")
+res10<-cld(mm10, Letters=letters, reverse=TRUE, alpha=.05)
+res10
+```
+
+```{r}
+res10%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= esp_m2))+
+labs(x="Vrn-B1 (wMAS000036)", y="esp_m2")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=esp_m2))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/10- Vrn-B1 (wMAS000036)- Tukey-esp_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-esp_m2.png",width=1000,height=900)
+boxplot(data= fp1,esp_m2~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "esp_m2",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# GUILLAS_ESP
+
+```{r}
+m_ls11<- lm(guillas_esp~vb1, data=fp1)
+summary (m_ls11)
+anova (m_ls11)
+library(emmeans)
+mm11<- emmeans(m_ls11, ~ vb1, type="response")
+res11<-cld(mm11, Letters=letters, reverse=TRUE, alpha=.05)
+res11
+```
+
+```{r}
+res11%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= guillas_esp))+
+labs(x="Vrn-B1 (wMAS000036)", y="guillas_esp")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=guillas_esp))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/11- Vrn-B1 (wMAS000036)- Tukey-guillas_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-guillas_esp.png",width=1000,height=900)
+boxplot(data= fp1,guillas_esp~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "guillas_esp",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# GRAN_ESP
+
+```{r}
+m_ls12<- lm(gran_esp~vb1, data=fp1)
+summary (m_ls12)
+anova (m_ls12)
+library(emmeans)
+mm12<- emmeans(m_ls12, ~ vb1, type="response")
+res12<-cld(mm12, Letters=letters, reverse=TRUE, alpha=.05)
+res12
+```
+
+```{r}
+res12%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= gran_esp))+
+labs(x="Vrn-B1 (wMAS000036)", y="gran_esp")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=gran_esp))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/12- Vrn-B1 (wMAS000036)- Tukey-gran_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-gran_esp.png",width=1000,height=900)
+boxplot(data= fp1,gran_esp~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "gran_esp",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# RINDE_ESP
+
+```{r}
+m_ls13<- lm(rinde_esp~vb1, data=fp1)
+summary (m_ls13)
+anova (m_ls13)
+library(emmeans)
+mm13<- emmeans(m_ls13, ~ vb1, type="response")
+res13<-cld(mm13, Letters=letters, reverse=TRUE, alpha=.05)
+res13
+```
+
+```{r}
+res13%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= rinde_esp))+
+labs(x="Vrn-B1 (wMAS000036)", y="rinde_esp")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=rinde_esp))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/12- Vrn/Vrn-B1 (wMAS000036)- Tukey-rinde_esp.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-rinde_esp.png",width=1000,height=900)
+boxplot(data= fp1,rinde_esp~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "rinde_esp",
+col=c("red", "lightblue"))
+dev.off()
+```
+
+# G_M2
+
+```{r}
+m_ls14<- lm(g_m2~vb1, data=fp1)
+summary (m_ls14)
+anova (m_ls14)
+library(emmeans)
+mm14<- emmeans(m_ls14, ~ vb1, type="response")
+res14<-cld(mm14, Letters=letters, reverse=TRUE, alpha=.05)
+res14
+```
+
+```{r}
+res14%>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+geom_boxplot(data=fp1,mapping=aes(x=vb1,y= g_m2))+
+labs(x="Vrn-B1 (wMAS000036)", y="g_m2")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=fp1,width  =.1, alpha =.5,
+              aes(y=g_m2))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/12- Vrn/Vrn-B1 (wMAS000036)- Tukey-g_m2.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/2- Vrn/Vrn-B1 (wMAS000036)/1-Vrn-B1 (wMAS000036)-Tukey-Color-g_m2.png",width=1000,height=900)
+boxplot(data= fp1,g_m2~vb1, main= "Diagrama de cajas para Vrn-B1 (wMAS000036)", xlab="Alelos", ylab= "g_m2",
+col=c("red", "lightblue"))
+dev.off()
+```

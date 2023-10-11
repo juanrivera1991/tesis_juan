@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(skimr)
+library(performance)
+library(emmeans)
+library(multcomp)
+library(readxl)
+```
+
+
+```{r}
+m_ls1 <- lm(espigazon~gs0, data=prom)
+summary (m_ls1)
+anova (m_ls1)
+library(emmeans)
+mm1 <- emmeans(m_ls1, ~ gs0, type="response")
+res1 <- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+
+res1 %>%
+  ggplot()+
+  aes(x=gs0,y=emmean)+
+  geom_boxplot(data=prom,mapping=aes(x=gs0,y= espigazon))+
+  labs(x="Ppd-A1GS100", y="Espigazón (días)")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=prom,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+```{r}
+ggsave(last_plot(),file="7- Anova para genes/1- PpdA1/Gráficos/Ppd-A1GS100 (wMAS000030)/1- Tukey Ppd-A1GS100.png", w=300, h=250, units="mm", dpi=300)
+```
+
+```{r}
+png(file="7- Anova para genes/1- PpdA1/Gráficos/Ppd-A1GS100 (wMAS000030)/1- Tukey Ppd-A1GS100 con colores.png",width= 1000, height= 900)
+boxplot(data= prom, espigazon~gs0, main= "Diagrama de cajas para PpdA1-GS100", xlab="Alelos", ylab= "Espigazón (días)",
+col=c("lightblue", "orange"))
+dev.off()
+```
+

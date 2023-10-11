@@ -1,0 +1,1811 @@
+---
+title: "Untitled"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(skimr)
+library(performance)
+library(emmeans)
+library(multcomp)
+library(readxl)
+```
+
+```{r}
+library(readxl)
+data <- read_excel("data/coleccion - Copy (2).xlsx")
+View(data)
+```
+
+---------------------------------------------------------------------------------------
+
+# 1) OBSERVACIONES
+
+ph:	Peso hectolítrico 
+proteina:	% de proteína en grano (método NIR)
+espigazon: Fecha de espigazón (días)
+altura:	Altura (cm)
+kg_parcela:	Rendimiento/parcela (Kg)
+
+---------------------------------------------------------------------------------------
+
+# 2) DATOS EXPLORATORIOS
+
+```{r}
+pacman::p_load(tidyverse, skimr, rio, janitor, GGally, huxtable,
+MASS, relaimpo, emmeans, multcomp)
+conflicted::conflict_prefer("select", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")
+```
+```{r}
+glimpse(data)
+```
+##RESUMEN
+
+```{r}
+summary (data)
+```
+##MEDIA POR GENOTIPOS
+
+```{r}
+data %>% group_by(genotipo) %>% summarise(mean(ph),mean(proteina),mean(espigazon),mean(altura),mean(kg_parcela))
+```
+##DESVÍO POR GENOTIPOS
+
+```{r}
+data %>% group_by(genotipo) %>% summarise(sd(ph),sd(proteina),sd(espigazon),sd(altura),sd(kg_parcela))
+```
+## CV POR GENOTIPOS
+
+```{r}
+data %>% group_by(genotipo) %>% summarise(sd(ph)/mean(ph),sd(proteina)/mean(proteina),sd(espigazon)/mean(espigazon),sd(altura)/mean(altura),sd(kg_parcela)/mean(kg_parcela))
+```
+
+---------------------------------------------------------------------------------------
+
+# 3) TEST DE NORMALIDAD
+
+##Test de normalidad para más de 50 datos --> lillie.test (Test de Kolmogorov S.)
+Si hay menos de 50, se usa Shapiro Wilt --> shapiro.test (Test de Shapiro)
+
+H0: La info tiene distribuión N
+H1: La info NO tiene distribución N
+
+p-valor < alpha --> Se rechaza H0
+
+```{r}
+library(tidyverse) 
+library(gganimate) 
+library(nortest) 
+```
+## NORMALIDAD PH
+
+```{r}
+jpeg("1-Histograma de la variable Peso hectolítrico .jpeg")
+hist(data$ph, prob= TRUE, main = "Test de Normalidad para  PH", xlab="PH", ylab="Frecuencia", col= "violet")
+x<- seq(min(data$ph), max(data$ph), length=50)
+f<- dnorm (x, mean= mean (data$ph),sd= sd(data$ph))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(data$ph)
+
+jpeg("1-Gráfico QQ-Norm de la variable Peso hectolítrico .jpeg")
+qqnorm(data$ph, col= "violet")
+qqline(data$ph)
+dev.off()
+```
+
+## NORMALIDAD PROTEÍNA
+
+```{r}
+jpeg("2-Histograma de la variable % de proteína en grano (método NIR).jpeg")
+hist(data$proteina, prob= TRUE, main = "Test de Normalidad para  PROTEINA", xlab="PROTEINA", ylab="Frecuencia", col= "violet")
+x<- seq(min(data$proteina), max(data$proteina), length=50)
+f<- dnorm (x, mean= mean (data$proteina),sd= sd(data$proteina))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(data$proteina)
+
+jpeg("2-Gráfico QQ-Norm de la variable % de proteína en grano (método NIR).jpeg")
+qqnorm(data$proteina, col= "violet")
+qqline(data$proteina)
+dev.off()
+```
+
+## NORMALIDAD ESPIGAZÓN
+
+```{r}
+jpeg("3-Histograma de la variable Fecha de espigazón (días).jpeg")
+hist(data$espigazon, prob= TRUE, main = "Test de Normalidad para  ESPIGAZON", xlab="ESPIGAZON", ylab="Frecuencia", col= "violet")
+x<- seq(min(data$espigazon), max(data$espigazon), length=50)
+f<- dnorm (x, mean= mean (data$espigazon),sd= sd(data$espigazon))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(data$espigazon)
+
+jpeg("3-Gráfico QQ-Norm de la variable Fecha de espigazón (días).jpeg")
+qqnorm(data$espigazon, col= "violet")
+qqline(data$espigazon)
+dev.off()
+```
+
+## NORMALIDAD ALTURA
+
+```{r}
+jpeg("5-Histograma de la variable Altura (cm).jpeg")
+hist(data$altura, prob= TRUE, main = "Test de Normalidad para  ALTURA", xlab="ALTURA", ylab="Frecuencia", col= "violet")
+x<- seq(min(data$altura), max(data$altura), length=50)
+f<- dnorm (x, mean= mean (data$altura),sd= sd(data$altura))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(data$altura)
+
+jpeg("5-Gráfico QQ-Norm de la variable Altura (cm).jpeg")
+qqnorm(data$altura, col= "violet")
+qqline(data$altura)
+dev.off()
+```
+
+## NORMALIDAD KG_PARCELA
+
+```{r}
+jpeg("6-Histograma de la variable Rendimiento x parcela (Kg).jpeg")
+hist(data$kg_parcela, prob= TRUE, main = "Test de Normalidad para  KG_PARCELA", xlab="KG_PARCELA", ylab="Frecuencia", col= "violet")
+x<- seq(min(data$kg_parcela), max(data$kg_parcela), length=50)
+f<- dnorm (x, mean= mean (data$kg_parcela),sd= sd(data$kg_parcela))
+lines(x, f, col = "red", lwd=2)
+dev.off()
+
+lillie.test(data$kg_parcela)
+
+jpeg("6-Gráfico QQ-Norm de la variable Rendimiento x parcela (Kg).jpeg")
+qqnorm(data$kg_parcela, col= "violet")
+qqline(data$kg_parcela)
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+
+# 4) CORRELACIÓN
+
+```{r}
+data %>%
+  select(ph,proteina,espigazon,altura,kg_parcela) |>
+ggpairs()
+```
+
+```{r}
+ggsave(last_plot(),file="1- Matriz de correlación 2021-22.png", w=400, h=250, units="mm", dpi=600)
+```
+
+---------------------------------------------------------------------------------------
+# 5) PAÍSES
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~pais,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ pais, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=pais,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=pais, y=ph))+
+  labs(x="Países", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y países.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y países colores.png",width= 1000, height= 900)
+boxplot(data= data,ph~pais, main= "Diagrama de cajas de colección 2021/22", xlab="Países", ylab = "PH",
+col=mi_paleta(39))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~pais,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ pais, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=pais,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=pais, y=proteina))+
+  labs(x="Países", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y países.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y países colores.png",width= 1000, height= 900)
+boxplot(data= data,proteina~pais, main= "Diagrama de cajas de colección 2021/22", xlab="Países", ylab = "PROTEINA",
+col=mi_paleta(39))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~pais,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ pais, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=pais,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=pais, y=espigazon))+
+  labs(x="Países", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y países.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y países colores.png",width= 1000, height= 900)
+boxplot(data= data,espigazon~pais, main= "Diagrama de cajas de colección 2021/22", xlab="Países", ylab = "ESPIGAZON",
+col=mi_paleta(39))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~pais,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ pais, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=pais,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=pais, y=altura))+
+  labs(x="Países", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y países.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y países colores.png",width= 1000, height= 900)
+boxplot(data= data,altura~pais, main= "Diagrama de cajas de colección 2021/22", xlab="Países", ylab = "ALTURA",
+col=mi_paleta(39))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~pais,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ pais, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=pais,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=pais, y=kg_parcela))+
+  labs(x="Países", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y países.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y países colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~pais, main= "Diagrama de cajas de colección 2021/22", xlab="Países", ylab = "KG_PARCELA",
+col=mi_paleta(39))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 6) MACROÁREAS
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~macroarea,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ macroarea, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=macroarea,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=macroarea, y=ph))+
+  labs(x="macroareas", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y macroareas.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y macroareas colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~macroarea, main= "Diagrama de cajas de colección 2021/22", xlab="macroareas", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~macroarea,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ macroarea, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=macroarea,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=macroarea, y=proteina))+
+  labs(x="macroareas", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y macroareas.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y macroareas colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~macroarea, main= "Diagrama de cajas de colección 2021/22", xlab="macroareas", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~macroarea,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ macroarea, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=macroarea,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=macroarea, y=espigazon))+
+  labs(x="macroareas", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y macroareas.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y macroareas colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~macroarea, main= "Diagrama de cajas de colección 2021/22", xlab="macroareas", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~macroarea,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ macroarea, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=macroarea,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=macroarea, y=altura))+
+  labs(x="macroareas", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y macroareas.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y macroareas colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~macroarea, main= "Diagrama de cajas de colección 2021/22", xlab="macroareas", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~macroarea,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ macroarea, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=macroarea,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=macroarea, y=kg_parcela))+
+  labs(x="macroareas", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y macroareas.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y macroareas colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~macroarea, main= "Diagrama de cajas de colección 2021/22", xlab="macroareas", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+
+---------------------------------------------------------------------------------------
+# 7) Rht
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~rht,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ rht, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=rht,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=rht, y=ph))+
+  labs(x="rhts", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y rhts.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y rhts colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~rht, main= "Diagrama de cajas de colección 2021/22", xlab="rhts", ylab = "PH",
+col=mi_paleta(4))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~rht,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ rht, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=rht,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=rht, y=proteina))+
+  labs(x="rhts", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y rhts.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y rhts colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~rht, main= "Diagrama de cajas de colección 2021/22", xlab="rhts", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~rht,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ rht, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=rht,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=rht, y=espigazon))+
+  labs(x="rhts", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y rhts.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y rhts colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~rht, main= "Diagrama de cajas de colección 2021/22", xlab="rhts", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~rht,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ rht, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=rht,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=rht, y=altura))+
+  labs(x="rhts", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y rhts.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y rhts colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~rht, main= "Diagrama de cajas de colección 2021/22", xlab="rhts", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~rht,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ rht, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=rht,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=rht, y=kg_parcela))+
+  labs(x="rhts", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y rhts.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y rhts colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~rht, main= "Diagrama de cajas de colección 2021/22", xlab="rhts", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 8) Fp1
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~fp1,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ fp1, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=fp1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp1, y=ph))+
+  labs(x="fp1s", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y fp1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y fp1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~fp1, main= "Diagrama de cajas de colección 2021/22", xlab="fp1s", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~fp1,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ fp1, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=fp1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp1, y=proteina))+
+  labs(x="fp1s", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y fp1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y fp1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~fp1, main= "Diagrama de cajas de colección 2021/22", xlab="fp1s", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~fp1,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ fp1, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=fp1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp1, y=espigazon))+
+  labs(x="fp1s", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y fp1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y fp1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~fp1, main= "Diagrama de cajas de colección 2021/22", xlab="fp1s", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~fp1,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ fp1, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=fp1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp1, y=altura))+
+  labs(x="fp1s", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y fp1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y fp1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~fp1, main= "Diagrama de cajas de colección 2021/22", xlab="fp1s", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~fp1,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ fp1, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=fp1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp1, y=kg_parcela))+
+  labs(x="fp1s", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y fp1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y fp1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~fp1, main= "Diagrama de cajas de colección 2021/22", xlab="fp1s", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 9) Fp2
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~fp2,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ fp2, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=fp2,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp2, y=ph))+
+  labs(x="fp2s", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y fp2s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y fp2s colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~fp2, main= "Diagrama de cajas de colección 2021/22", xlab="fp2s", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~fp2,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ fp2, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=fp2,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp2, y=proteina))+
+  labs(x="fp2s", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y fp2s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y fp2s colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~fp2, main= "Diagrama de cajas de colección 2021/22", xlab="fp2s", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~fp2,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ fp2, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=fp2,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp2, y=espigazon))+
+  labs(x="fp2s", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y fp2s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y fp2s colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~fp2, main= "Diagrama de cajas de colección 2021/22", xlab="fp2s", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~fp2,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ fp2, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=fp2,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp2, y=altura))+
+  labs(x="fp2s", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y fp2s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y fp2s colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~fp2, main= "Diagrama de cajas de colección 2021/22", xlab="fp2s", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~fp2,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ fp2, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=fp2,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=fp2, y=kg_parcela))+
+  labs(x="fp2s", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y fp2s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y fp2s colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~fp2, main= "Diagrama de cajas de colección 2021/22", xlab="fp2s", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 10) Va1
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~va1,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ va1, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=va1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1, y=ph))+
+  labs(x="va1s", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y va1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y va1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~va1, main= "Diagrama de cajas de colección 2021/22", xlab="va1s", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~va1,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ va1, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=va1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1, y=proteina))+
+  labs(x="va1s", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y va1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y va1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~va1, main= "Diagrama de cajas de colección 2021/22", xlab="va1s", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~va1,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ va1, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=va1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1, y=espigazon))+
+  labs(x="va1s", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y va1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y va1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~va1, main= "Diagrama de cajas de colección 2021/22", xlab="va1s", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~va1,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ va1, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=va1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1, y=altura))+
+  labs(x="va1s", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y va1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y va1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~va1, main= "Diagrama de cajas de colección 2021/22", xlab="va1s", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~va1,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ va1, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=va1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1, y=kg_parcela))+
+  labs(x="va1s", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y va1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y va1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~va1, main= "Diagrama de cajas de colección 2021/22", xlab="va1s", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 11) Vb1
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~vb1,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ vb1, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=vb1, y=ph))+
+  labs(x="vb1s", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y vb1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y vb1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~vb1, main= "Diagrama de cajas de colección 2021/22", xlab="vb1s", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~vb1,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ vb1, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=vb1, y=proteina))+
+  labs(x="vb1s", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y vb1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y vb1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~vb1, main= "Diagrama de cajas de colección 2021/22", xlab="vb1s", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~vb1,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ vb1, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=vb1, y=espigazon))+
+  labs(x="vb1s", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y vb1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y vb1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~vb1, main= "Diagrama de cajas de colección 2021/22", xlab="vb1s", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~vb1,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ vb1, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=vb1, y=altura))+
+  labs(x="vb1s", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y vb1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y vb1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~vb1, main= "Diagrama de cajas de colección 2021/22", xlab="vb1s", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~vb1,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ vb1, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=vb1,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=vb1, y=kg_parcela))+
+  labs(x="vb1s", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y vb1s.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y vb1s colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~vb1, main= "Diagrama de cajas de colección 2021/22", xlab="vb1s", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+---------------------------------------------------------------------------------------
+# 12) Va1b
+
+##PH 2021/22
+```{r}
+m_ls1<- lm(ph~va1b,  data=data)
+summary(m_ls1)
+anova(m_ls1)
+library(emmeans)
+mm1<- emmeans(m_ls1, ~ va1b, type="response")
+res1<- cld(mm1, Letters=letters, reverse=TRUE, alpha=.05)
+res1
+```
+
+```{r}
+library(ggplot2)
+res1 %>%
+  ggplot()+
+  aes(x=va1b,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1b, y=ph))+
+  labs(x="va1bs", y="PH")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=ph))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/1-PH y va1bs.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("blue", "violet", "red"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/1- PH y va1bs colores.png",width= 2000, height= 1200)
+boxplot(data= data,ph~va1b, main= "Diagrama de cajas de colección 2021/22", xlab="va1bs", ylab = "PH",
+col=mi_paleta(15))
+dev.off()
+```
+
+##PROTEINA 2021/22
+```{r}
+m_ls2<- lm(proteina~va1b,  data=data)
+summary(m_ls2)
+anova(m_ls2)
+library(emmeans)
+mm2<- emmeans(m_ls2, ~ va1b, type="response")
+res2<-cld(mm2, Letters=letters, reverse=TRUE, alpha=.05)
+res2
+```
+
+```{r}
+library(ggplot2)
+res2 %>%
+  ggplot()+
+  aes(x=va1b,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1b, y=proteina))+
+  labs(x="va1bs", y="PROTEINA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=proteina))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/2-PROTEINA y va1bs.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("green", "yellow", "orange"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/2- PROTEINA y va1bs colores.png",width= 2000, height= 1200)
+boxplot(data= data,proteina~va1b, main= "Diagrama de cajas de colección 2021/22", xlab="va1bs", ylab = "PROTEINA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ESPIGAZON 2021/22
+```{r}
+m_ls3<- lm(espigazon~va1b,  data=data)
+summary(m_ls3)
+anova(m_ls3)
+library(emmeans)
+mm3<- emmeans(m_ls3, ~ va1b, type="response")
+res3<- cld(mm3, Letters=letters, reverse=TRUE, alpha=.05)
+res3
+```
+
+```{r}
+library(ggplot2)
+res3 %>%
+  ggplot()+
+  aes(x=va1b,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1b, y=espigazon))+
+  labs(x="va1bs", y="ESPIGAZON")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=espigazon))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/3-ESPIGAZON y va1bs.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("darkviolet", "darkblue", "green"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/3- ESPIGAZON y va1bs colores.png",width= 2000, height= 1200)
+boxplot(data= data,espigazon~va1b, main= "Diagrama de cajas de colección 2021/22", xlab="va1bs", ylab = "ESPIGAZON",
+col=mi_paleta(15))
+dev.off()
+```
+
+##ALTURA 2021/22
+```{r}
+m_ls4<- lm(altura~va1b,  data=data)
+summary(m_ls4)
+anova(m_ls4)
+library(emmeans)
+mm4<- emmeans(m_ls4, ~ va1b, type="response")
+res4<- cld(mm4, Letters=letters, reverse=TRUE, alpha=.05)
+res4
+```
+
+```{r}
+library(ggplot2)
+res4 %>%
+  ggplot()+
+  aes(x=va1b,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1b, y=altura))+
+  labs(x="va1bs", y="ALTURA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=altura))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/4-ALTURA y va1bs.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("red", "pink", "white"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/4- ALTURA y va1bs colores.png",width= 2000, height= 1200)
+boxplot(data= data,altura~va1b, main= "Diagrama de cajas de colección 2021/22", xlab="va1bs", ylab = "ALTURA",
+col=mi_paleta(15))
+dev.off()
+```
+
+##KG_PARCELA 2021/22
+```{r}
+m_ls5<- lm(kg_parcela~va1b,  data=data)
+summary(m_ls5)
+anova(m_ls5)
+library(emmeans)
+mm5<- emmeans(m_ls5, ~ va1b, type="response")
+res5<- cld(mm5, Letters=letters, reverse=TRUE, alpha=.05)
+res5
+```
+
+```{r}
+library(ggplot2)
+res5 %>%
+  ggplot()+
+  aes(x=va1b,y=emmean)+
+  geom_boxplot(data=data,mapping=aes(x=va1b, y=kg_parcela))+
+  labs(x="va1bs", y="KG_PARCELA")+
+  geom_text(aes(label=str_squish(.group)),
+            angle=90,vjust=-1)+
+  geom_jitter(data=data,width  =.1, alpha =.5,
+              aes(y=kg_parcela))+
+  theme_bw()
+```
+
+```{r}
+ggsave(last_plot(),file="6-Colección 2021-22/5-KG_PARCELA y va1bs.png", w=400,h=400, units="mm", dpi=900)
+```
+
+```{r}
+mi_paleta <- colorRampPalette(c("yellow", "orange", "black"))
+```
+
+```{r}
+png(file="6-Colección 2021-22/5- KG_PARCELA y va1bs colores.png",width= 2000, height= 1200)
+boxplot(data= data,kg_parcela~va1b, main= "Diagrama de cajas de colección 2021/22", xlab="va1bs", ylab = "KG_PARCELA",
+col=mi_paleta(15))
+dev.off()
+```
+
+-------------------------------------------------------------------------
