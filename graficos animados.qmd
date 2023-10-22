@@ -1,0 +1,98 @@
+---
+title: "juan"
+format: html
+---
+
+```{r}
+install.packages("plotly")
+```
+https://www.youtube.com/watch?v=i0nkPfVUges
+
+#descargamos la libreria y pquetes para elaborar los graficos animados
+
+```{r}
+install.packages("gapminder")
+install.packages("png")
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(gifski)
+```
+
+#usamos la base de datos gapminder, tiene estructura de panel
+```{r}
+head(gapminder)
+View(gapminder)
+```
+
+
+#la base de datos corresponde a todos los paises
+#Filtramos a los paises de america (reducir la muestra)
+
+```{r}
+library(dplyr)
+america<-filter(gapminder, continent=="Americas")
+View(america)
+```
+
+
+#graficamos toda la Informacion en una foto 
+
+```{r}
+estatico <- ggplot(data=america)+  
+          geom_point(mapping=aes(x = gdpPercap, y=lifeExp, size = pop, colour = country),show.legend = T, alpha = 0.7) +
+          scale_color_viridis_d() + scale_size(range = c(2, 12)) + scale_x_log10() +
+          labs(x ="Ingreso per capita", y = "Tiempo de vida")+ ggtitle("Evolucion de los paises de Sudamerica")
+estatico
+```
+
+
+#Realizamos la animacion con TRANSITION_TIME Correspondiente usando el grafico estatico
+
+```{r}
+library(gganimate)
+dinamico<-estatico + transition_time(year)+ labs(title = "Year: {frame_time}")
+dinamico
+```
+
+
+#queremos graficar Paises en contra en Trump
+
+##Filtramos segun una Lista de Paises de diferentes continentes
+
+```{r}
+fueratrump<- c('Argentina', 'Brazil','Mexico','cuba','Venezuela','Japan','China','India','Mongolia')
+antiyanquis<-filter(gapminder, country%in%fueratrump)
+View(antiyanquis)
+```
+
+
+
+##grafico estatico, fomato de color vidrio, escal x en log, y difernete tamano a la poblacion
+###cambiar la data gapminder por sudamerica +show.legend = T
+
+```{r}
+estatico2 <- ggplot(data=antiyanquis)+  
+          geom_point(mapping=aes(x = gdpPercap, y=lifeExp, size = pop, colour = country),show.legend = T, alpha = 0.7) +
+          scale_color_viridis_d() + scale_size(range = c(2, 12)) +  scale_x_log10() +
+          labs(x ="Ingreso per capita", y = "Tiempo de vida")+ ggtitle("Evolucion de los Paises contra Trump")
+estatico2
+```
+
+
+###Realizamos la animacion con TRANSITION_TIME Correspondiente usando el grafico estatico
+
+```{r}
+dinamico2<-estatico2 + transition_time(year)+ labs(title = "Year: {frame_time}")
+dinamico2
+```
+
+
+###dividimos el grafico segun al contineente que pertenece
+
+```{r}
+estatico2 + facet_wrap(~continent) +transition_time(year) + labs(title = "Year: {frame_time}")
+```
+
+
+
